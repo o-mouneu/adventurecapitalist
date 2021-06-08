@@ -1,0 +1,41 @@
+Adventure Capitalist :
+
+Produits (exemple Citron) :
+- Coût du prochain exemplaire (4€ au début, coût "initial")
+- Nombre d'exemplaires (1, 2, 3, ...)
+- Revenu (3,48€)
+- Vitesse de production
+- Taux de croissance (seule propriété à ne jamais varier)
+
+U0 = 4
+U1 = U0 x 1.07
+U2 = U1 x 1.07 = U0 x 1.07²
+Un = U(n-1) x 1.07^n
+
+Acheter n produits, coûte
+U1 + U2 + ... + Un = U1 ( (1 - r^n) / (1 - r ) )
+
+Achat x1, x10, x100, Next, Max
+x1, x10, x100, Next (facile car utiliser équation du dessus)
+Max, résoudre l'équation PrixMax (connu) = U1 ( (1 - r^n) / (1 - r ) )
+
+Upgrades (cash) :
+Améliore un produit contre de l'argent
+Upgrades (anges) :
+Améliore un produit ou sa quantité contre des anges
+
+Anges :
+Apporte un bonus global (2% par ange), on gagne des anges en fonction du score (fonction racine)
+
+Managers :
+Automatiser la mise en production du produit -> nécessite de gérer le temps qui passe, la base de donner etc.
+
+Palliers :
+Améliore un ou des produits (production ou vitesse)
+
+
+
+----
+
+Serveur -> c'est lui qui a raison
+Client et serveur doivent se mettre d'accord
