@@ -1,5 +1,9 @@
 # Vatican Capitalist
 
+## Fichier XML de base
+
+documentation/world.xml
+
 ## Univers du jeu  
 Vatican capitalist
 
@@ -8,7 +12,7 @@ Vatican capitalist
 - Anges -> Anges
 
 ### Produits et managers :
-- Osties, géré par l'Enfant de cœur
+- Ostie, géré par l'Enfant de cœur
 - Bible, géré par le Scribe 
 - Confessionnal, géré par le Curé
 - Église, géré par le Prêtre
