@@ -9,12 +9,35 @@
   <angelbonus>2</angelbonus>
   <lastupdate>0</lastupdate>
   <products>
-    <product>
+  <product>
       <id>1</id>
-      <name>Ostie</name>
+      <name>Eau bénite</name>
       <logo>TODO</logo>
       <cout>1</cout>
       <croissance>1.01</croissance>
+      <revenu>0.1</revenu>
+      <vitesse>0.1</vitesse>
+      <quantite>0</quantite>
+      <timeleft>0.1</timeleft>
+      <managerUnlocked>false</managerUnlocked>
+      <palliers>
+        <pallier>
+          <name>TODO</name>
+          <logo>TODO</logo>
+          <seuil>TODO</seuil>
+          <idcible>TODO</idcible>
+          <ratio>TODO</ratio>
+          <typeratio>vitesse</typeratio>
+          <unlocked>false</unlocked>
+        </pallier>
+      </palliers>
+    </product>
+    <product>
+      <id>2</id>
+      <name>Ostie</name>
+      <logo>TODO</logo>
+      <cout>1</cout>
+      <croissance>1.05</croissance>
       <revenu>0.5</revenu>
       <vitesse>0.5</vitesse>
       <quantite>0</quantite>
@@ -33,15 +56,84 @@
       </palliers>
     </product>
     <product>
-      <id>2</id>
+      <id>3</id>
       <name>Bible</name>
       <logo>TODO</logo>
       <cout>20</cout>
-      <croissance>1.05</croissance>
-      <revenu>2</revenu>
+      <croissance>1.02</croissance>
+      <revenu>10</revenu>
       <vitesse>5</vitesse>
       <quantite>0</quantite>
       <timeleft>5</timeleft>
+      <managerUnlocked>false</managerUnlocked>
+      <palliers>
+        <pallier>
+          <name>TODO</name>
+          <logo>TODO</logo>
+          <seuil>TODO</seuil>
+          <idcible>TODO</idcible>
+          <ratio>TODO</ratio>
+          <typeratio>vitesse</typeratio>
+          <unlocked>false</unlocked>
+        </pallier>
+      </palliers>
+    </product>
+    <product>
+      <id>4</id>
+      <name>Confessionnal</name>
+      <logo>TODO</logo>
+      <cout>300</cout>
+      <croissance>1.02</croissance>
+      <revenu>100</revenu>
+      <vitesse>1</vitesse>
+      <quantite>0</quantite>
+      <timeleft>1</timeleft>
+      <managerUnlocked>false</managerUnlocked>
+      <palliers>
+        <pallier>
+          <name>TODO</name>
+          <logo>TODO</logo>
+          <seuil>TODO</seuil>
+          <idcible>TODO</idcible>
+          <ratio>TODO</ratio>
+          <typeratio>vitesse</typeratio>
+          <unlocked>false</unlocked>
+        </pallier>
+      </palliers>
+    </product>
+    <product>
+      <id>5</id>
+      <name>Bûcher</name>
+      <logo>TODO</logo>
+      <cout>10000</cout>
+      <croissance>1.05</croissance>
+      <revenu>2500</revenu>
+      <vitesse>10</vitesse>
+      <quantite>0</quantite>
+      <timeleft>10</timeleft>
+      <managerUnlocked>false</managerUnlocked>
+      <palliers>
+        <pallier>
+          <name>TODO</name>
+          <logo>TODO</logo>
+          <seuil>TODO</seuil>
+          <idcible>TODO</idcible>
+          <ratio>TODO</ratio>
+          <typeratio>vitesse</typeratio>
+          <unlocked>false</unlocked>
+        </pallier>
+      </palliers>
+    </product>
+    <product>
+      <id>6</id>
+      <name>Cathédrale</name>
+      <logo>TODO</logo>
+      <cout>10000000</cout>
+      <croissance>1.05</croissance>
+      <revenu>300000</revenu>
+      <vitesse>300</vitesse>
+      <quantite>0</quantite>
+      <timeleft>300</timeleft>
       <managerUnlocked>false</managerUnlocked>
       <palliers>
         <pallier>
@@ -91,10 +183,55 @@
   </angelupgrades>
   <managers>
     <pallier>
-      <name>Enfant de cœur</name>
+      <name>Veolia Sacra</name>
       <logo>TODO</logo>
-      <seuil>TODO</seuil>
+      <seuil>500</seuil>
       <idcible>1</idcible>
+      <ratio>1</ratio>
+      <typeratio>vitesse</typeratio>
+      <unlocked>false</unlocked>
+    </pallier>
+    <pallier>
+      <name>Jules l'enfant de cœur</name>
+      <logo>TODO</logo>
+      <seuil>2000</seuil>
+      <idcible>2</idcible>
+      <ratio>1</ratio>
+      <typeratio>vitesse</typeratio>
+      <unlocked>false</unlocked>
+    </pallier>
+    <pallier>
+      <name>Johannes Gutenberg</name>
+      <logo>TODO</logo>
+      <seuil>8000</seuil>
+      <idcible>3</idcible>
+      <ratio>1</ratio>
+      <typeratio>vitesse</typeratio>
+      <unlocked>false</unlocked>
+    </pallier>
+    <pallier>
+      <name>Abbé Pierre</name>
+      <logo>TODO</logo>
+      <seuil>32000</seuil>
+      <idcible>4</idcible>
+      <ratio>1</ratio>
+      <typeratio>vitesse</typeratio>
+      <unlocked>false</unlocked>
+    </pallier>
+    <pallier>
+      <name>Inquisition espagnole</name>
+      <logo>TODO</logo>
+      <seuil>128000</seuil>
+      <idcible>5</idcible>
+      <ratio>1</ratio>
+      <typeratio>vitesse</typeratio>
+      <unlocked>false</unlocked>
+    </pallier>
+    <pallier>
+      <name>Pape Innocent IX</name>
+      <logo>TODO</logo>
+      <seuil>512000</seuil>
+      <idcible>2</idcible>
       <ratio>1</ratio>
       <typeratio>vitesse</typeratio>
       <unlocked>false</unlocked>
