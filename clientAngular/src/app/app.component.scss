@@ -1,0 +1,53 @@
+$logo-container-width: 100px;
+$logo-width: 80%;
+
+header {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+
+    #title{
+        margin: 0;
+        text-align: left;
+    }
+    div {
+        margin: auto;
+        text-align: center;
+        vertical-align: middle;
+
+        figure {
+            border: 3px solid black;
+            border-radius: 50%;
+            width: $logo-container-width;
+            height: $logo-container-width;
+            overflow: hidden;
+        
+            display: inline-block;
+            margin: 10px;
+            vertical-align: middle;
+            text-align: center;
+        
+            img {
+                max-width: $logo-width;
+                max-height: $logo-width;
+                margin: 15% 0;
+            }
+        
+        }
+
+        span {
+            vertical-align: middle;
+            margin: auto;
+            display: inline-block;
+        }
+
+    }
+
+}
+.main {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+.product {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

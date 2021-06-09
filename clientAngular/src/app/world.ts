@@ -1,20 +1,22 @@
 
 export class World {
-    /*name : string; 
+    name : string;
     logo : string;
-    money: number; 
+    /*money: number; 
     score: number; 
     totalangels: number;
     activeangels: number;
     angelbonus: number;
-    lastupdate: string;*/ 
+    lastupdate: string;*/
     products : { "product": Product[] };
     allunlocks: { "pallier": Pallier[]};
     upgrades: { "pallier": Pallier[]};
     angelupgrades: { "pallier": Pallier[]};
     managers: { "pallier": Pallier[]};
 
-    constructor() {
+    constructor(name:string, logo:string) {
+        this.name = name;
+        this.logo = logo;
         this.products = { "product":[ ] } ;
         this.managers = { "pallier":[ ] };
         this.upgrades = { "pallier":[ ] };
@@ -35,7 +37,6 @@ export class Product {
     timeleft: number;
     managerUnlocked: boolean;
     palliers : { "pallier" : Pallier[]};*/
-
 }
 
 export class Pallier {
