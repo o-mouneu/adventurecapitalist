@@ -10,13 +10,22 @@
   <div><span>ID du joueur</span></div>
 </header>
 <div class="main">
-  <aside> liste des boutons de menu </aside>
+  <aside>
+    <nav>
+      <ul>
+        <li>Unlocks</li>
+        <li>Upgrades</li>
+        <li>Manager</li>
+        <li>Investors</li>
+      </ul>
+    </nav>
+  </aside>
   <section class="product">
-    <app-product [prod]="world.products.product[0]" class="product col-md-6"></app-product>
-    <app-product [prod]="world.products.product[1]" class="product col-md-6"></app-product>
-    <app-product [prod]="world.products.product[2]" class="product col-md-6"></app-product>
-    <app-product [prod]="world.products.product[3]" class="product col-md-6"></app-product>
-    <app-product [prod]="world.products.product[4]" class="product col-md-6"></app-product>
-    <app-product [prod]="world.products.product[5]" class="product col-md-6"></app-product>
+    <app-product [prod]="world.products.product[0]"></app-product>
+    <app-product [prod]="world.products.product[1]"></app-product>
+    <app-product [prod]="world.products.product[2]"></app-product>
+    <app-product [prod]="world.products.product[3]"></app-product>
+    <app-product [prod]="world.products.product[4]"></app-product>
+    <app-product [prod]="world.products.product[5]"></app-product>
   </section>
 </div>

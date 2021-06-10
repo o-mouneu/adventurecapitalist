@@ -11,21 +11,22 @@ import { Product } from '../world';
 
 export class ProductComponent implements OnInit {
 
-  product: Product = new Product();
+  img = '../assets/img/';  
+  logo = this.img+'product-placeholder.png'; 
+
+  product: Product;
+  _prod: Product;
 
   constructor() {
   }
+  
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
 
-  /*@Input()
-  set prod(value: Product) {
+  @Input()
+  public set prod(value: Product) {
       this.product = value;
-    }
-  }*/
-
-  /*ngOnInit(): void {
-  }*/
+  }
 
 }

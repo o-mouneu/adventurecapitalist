@@ -2,12 +2,12 @@
 export class World {
     name : string;
     logo : string;
-    /*money: number; 
+    money: number; 
     score: number; 
     totalangels: number;
     activeangels: number;
     angelbonus: number;
-    lastupdate: string;*/
+    lastupdate: string;
     products : { "product": Product[] };
     allunlocks: { "pallier": Pallier[]};
     upgrades: { "pallier": Pallier[]};
@@ -26,7 +26,7 @@ export class World {
 }
 
 export class Product {
-    /*id : number;
+    id : number;
     name : string;
     logo : string;
     cout : number;
@@ -36,15 +36,15 @@ export class Product {
     quantite: number;
     timeleft: number;
     managerUnlocked: boolean;
-    palliers : { "pallier" : Pallier[]};*/
+    palliers : { "pallier" : Pallier[]};
 }
 
 export class Pallier {
-    /*name: string;
+    name: string;
     logo: string;
     seuil: number;
     idcible: number;
     ratio: number;
     typeratio: string;
-    unlocked: boolean;*/
+    unlocked: boolean;
 }

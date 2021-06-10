@@ -1,0 +1,35 @@
+$logo-container-width: 100px;
+$logo-width: 80%;
+
+div {
+    margin: auto;
+    text-align: left;
+    vertical-align: middle;
+
+    figure {
+        border: 3px solid black;
+        border-radius: 50%;
+        width: $logo-container-width;
+        height: $logo-container-width;
+        overflow: hidden;
+    
+        display: inline-block;
+        margin: 10px;
+        vertical-align: middle;
+        text-align: center;
+    
+        img {
+            max-width: $logo-width;
+            max-height: $logo-width;
+            margin: 10% 0;
+        }
+    
+    }
+
+    span {
+        vertical-align: middle;
+        margin: auto;
+        display: inline-block;
+    }
+
+}
