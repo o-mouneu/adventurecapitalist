@@ -1,9 +1,18 @@
 <div class="col-md-6">
-    <figure>
-        <img src="../assets/img/product-placeholder.png"/>
-    </figure>
-    <span>product.name</span>
+    <button (click)="startFabrication()" mat-stroked-button class="production" color="primary">
+        <figure>
+            <img src="../assets/img/product-placeholder.png"/>
+        </figure>
+        <span>product.name</span>
+        <mat-progress-bar mode="determinate" [value]="progressbarvalue" class="progressbar"></mat-progress-bar>
+    </button>
+    <button class="buy mat-stroked-button">
+        <span>x1 : coût</span>
+    </button>
 </div>
+<mat-progress-spinner class="example-margin" mode="determinate" [value]="progressbarvalue"></mat-progress-spinner>
+
+
 <!--<div>
     <figure class="logo">
         <img [attr.src]="product.logo"/>

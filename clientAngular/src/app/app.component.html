@@ -5,7 +5,7 @@
     </figure>
     <span id="worldname">{{world.name}}</span>
   </div>
-  <div><span>X péchés pardonnés</span></div>
+  <div><span [innerHTML]="world.money | bigvalue"></span><span> péchés pardonnés</span></div>
   <div><span>multiplicateur</span></div>
   <div><span>ID du joueur</span></div>
 </header>

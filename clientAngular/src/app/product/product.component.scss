@@ -2,13 +2,27 @@ $logo-container-width: 100px;
 $logo-width: 80%;
 
 div {
-    margin: auto;
+    margin: 20px;
     text-align: left;
     vertical-align: middle;
+    width: 50%;
+
+    .production{
+        text-align: left;
+        //border: 3px solid black;
+        border-radius: 100px 5px 5px 100px;
+        width: 100%;
+    }
+
+    .buy{
+        width: 80%;
+        float: right;
+    }
 
     figure {
-        border: 3px solid black;
+        //border: 3px solid black;
         border-radius: 50%;
+        background-color: white;
         width: $logo-container-width;
         height: $logo-container-width;
         overflow: hidden;
@@ -26,10 +40,14 @@ div {
     
     }
 
-    span {
+    .progressbar{
+        height: 20px;
+    }
+
+    /*span {
         vertical-align: middle;
         margin: auto;
         display: inline-block;
-    }
+    }*/
 
 }

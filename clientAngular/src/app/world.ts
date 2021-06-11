@@ -15,6 +15,7 @@ export class World {
     managers: { "pallier": Pallier[]};
 
     constructor(name:string, logo:string) {
+        this.money = 1000000000000000;
         this.name = name;
         this.logo = logo;
         this.products = { "product":[ ] } ;
