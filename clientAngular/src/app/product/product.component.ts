@@ -31,6 +31,8 @@ export class ProductComponent implements OnInit {
   // placeholder value
   quantite = 1;
 
+  coutInitial = this.cout;
+
   product: Product;
   _prod: Product;
   _qtmulti: string;
@@ -117,12 +119,15 @@ export class ProductComponent implements OnInit {
   }
 
   buyProduct(){
-    this.quantite += this._quantityForCostOfBuy[0];
-    this.notifyBuy.emit(this._quantityForCostOfBuy[1]);
+    if (this.isProductBuyable()){
+      this.quantite += this._quantityForCostOfBuy[0];
+      this.cout = this.cout * (this.croissance ** this._quantityForCostOfBuy[0]);
+      this.notifyBuy.emit(this._quantityForCostOfBuy[1]);
+    }
   }
 
   isProductBuyable(){
-    return ( this._quantityForCostOfBuy[1] <= this._worldMoney );
+    return ( this._quantityForCostOfBuy[1] <= this.worldMoney);
   }
 
   quantityForCostOfBuy(){
@@ -145,6 +150,10 @@ export class ProductComponent implements OnInit {
       case this._buyQuantities[3]:
         factor = this.calcMaxCanBuy();
         this._quantityForCostOfBuy = [factor, this.calcCostForQuantity( factor )];
+        if  (this._quantityForCostOfBuy[1] == 0 ){
+          factor = 1;
+          this._quantityForCostOfBuy = [factor, this.calcCostForQuantity( factor )];
+        }
         break;
     }
 
@@ -152,12 +161,31 @@ export class ProductComponent implements OnInit {
 
   }
 
+  roundedCostOfBuy(){
+    return this._quantityForCostOfBuy[1].toFixed(2);
+  }
+
+  // FORMULE NE VA PAS : RETOURNE cout x (r^n) mais ne prend pas en compte les éléments précédents de la suite géométrique
   calcCostForQuantity(factor: number){
-    return factor*this.cout;
+    let value = 1;
+
+    value = this.cout * ( (1 - this.croissance**factor) / (1 - this.croissance) );
+
+    return value;
   }
 
   calcMaxCanBuy(){
-    return 500;
+    let value = 1;
+
+    let x = 1 - (1 - this.croissance) * (this.worldMoney / this.cout);
+    value = this.logbase(x, this.croissance);
+    value = Math.floor(value);
+
+    return value;
+  }
+
+  logbase(n:number, base:number){
+    return Math.log(n)/Math.log(base);
   }
 
 }

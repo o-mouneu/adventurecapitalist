@@ -6,13 +6,14 @@
     <span id="worldname">{{world.name}}</span>
   </div>
   <div id="money">
-    <span [innerHTML]="world.money | bigvalue"></span><span> péchés pardonnés</span>
+    <!-- ajout de &nbsp; pour insérer un espace -->
+    <span>{{world.money | bigvalue}}</span><span>&nbsp;péchés pardonnés</span>
   </div>
   <div id="multiplicateur">
     <span>multiplicateur</span>
   </div>
   <div id="quantite">
-    <button (click)="switchBuyQuantity()" mat-stroked-button color="primary">{{qtmulti}}</button>
+    <button (click)="switchBuyQuantity()" mat-raised-button color="primary">{{qtmulti}}</button>
   </div>
   <div id="joueurID"><span>ID du joueur</span></div>
 </header>

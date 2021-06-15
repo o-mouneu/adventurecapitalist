@@ -19,6 +19,26 @@ Achat x1, x10, x100, Next, Max
 x1, x10, x100, Next (facile car utiliser équation du dessus)
 Max, résoudre l'équation PrixMax (connu) = U1 ( (1 - r^n) / (1 - r ) )
 
+u1 + u2 + ... + uN = u1 ((1-r^n)/(1-r))
+
+Variable Max connue : A = U1 ( (1 - r^n) / (1 - r ) )
+A connu : argent possédé
+r connu : taux de croissance
+n inconnu : nombre de produits achetables à trouver
+U1 connu : deuxième élément de la suite
+On cherche à isoler n
+A = U1 ( (1 - r^n) / (1 - r) )
+A / U1 = (1 - r^n) / (1 - r)
+(1 - r) * A / U1 = 1 - r^n
+(1 - r) * (A / U1) - 1 = - r^n
+- (1 - r) * (A / U1) + 1 = r^n
+
+r^n = 1 - (1 - r) * (A / U1)
+
+n = log.r( 1 - (1 - r) * (A / U1) )
+n = log.r( ( U1 - A - r*A )/ U1)
+
+
 Upgrades (cash) :
 Améliore un produit contre de l'argent
 Upgrades (anges) :

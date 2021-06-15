@@ -1,14 +1,28 @@
 <div class="col-md-6">
-    <button (click)="startFabrication()" class="production" mat-stroked-button color="primary">
+    <button (click)="startFabrication()" class="production" mat-raised-button color="primary">
         <figure>
             <img src="../assets/img/product-placeholder.png"/>
         </figure>
-        <mat-progress-spinner class="example-margin" mode="determinate" [value]="progressbarvalue"></mat-progress-spinner>
+        <mat-progress-spinner class="example-margin" mode="determinate" [value]="progressbarvalue" color="accent"></mat-progress-spinner>
         <!-- placeholder value -->
         <span>{{quantite}} product.name</span>    
     </button>
-    <button (click)="buyProduct()" class="buy" mat-stroked-button color="primary">
-        <!-- placeholder value -->
-        <span>Acheter {{qtmulti}} pour {{quantityForCostOfBuy()[1]}}</span>
-    </button>
+    <div *ngIf="isProductBuyable(); then enabledButton else disabledButton"></div>
+    <ng-template #enabledButton>
+        <button (click)="buyProduct()" class="buy" mat-raised-button color="accent">
+            <!-- placeholder value -->
+            <span>Acheter {{quantityForCostOfBuy()[0]}} product.name pour {{roundedCostOfBuy()}}</span>
+        </button>
+    </ng-template>
+    <ng-template #disabledButton>
+        <button class="buy" mat-raised-button disabled>
+            <!-- placeholder value -->
+            <span>Acheter {{quantityForCostOfBuy()[0]}} product.name pour {{roundedCostOfBuy()}}</span>
+        </button>
+    </ng-template>
 </div>
+<!--
+<div *ngIf="condition; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>Content to render when condition is true.</ng-template>
+<ng-template #elseBlock>Content to render when condition is false.</ng-template>
+-->
