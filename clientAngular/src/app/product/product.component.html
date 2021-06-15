@@ -11,13 +11,13 @@
     <ng-template #enabledButton>
         <button (click)="buyProduct()" class="buy" mat-raised-button color="accent">
             <!-- placeholder value -->
-            <span>Acheter {{quantityForCostOfBuy()[0]}} product.name pour {{roundedCostOfBuy()}}</span>
+            <span>Acheter {{quantityForCostOfBuy()[0]}} product.name pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
         </button>
     </ng-template>
     <ng-template #disabledButton>
         <button class="buy" mat-raised-button disabled>
             <!-- placeholder value -->
-            <span>Acheter {{quantityForCostOfBuy()[0]}} product.name pour {{roundedCostOfBuy()}}</span>
+            <span>Acheter {{quantityForCostOfBuy()[0]}} product.name pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
         </button>
     </ng-template>
 </div>

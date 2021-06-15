@@ -7,7 +7,7 @@
   </div>
   <div id="money">
     <!-- ajout de &nbsp; pour insérer un espace -->
-    <span>{{world.money | bigvalue}}</span><span>&nbsp;péchés pardonnés</span>
+    <span><span [innerHTML]="world.money | bigvalue"></span>&nbsp;péchés pardonnés</span>
   </div>
   <div id="multiplicateur">
     <span>multiplicateur</span>

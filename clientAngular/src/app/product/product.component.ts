@@ -21,13 +21,13 @@ export class ProductComponent implements OnInit {
   // placeholder value
   logo = this.img+'product-placeholder.png';
   // placeholder value
-  vitesse = 2000;
+  vitesse = 200;
   // placeholder value
   cout = 1;
   // placeholder value
   croissance = 1.01;
   // placeholder value
-  revenu = 2;
+  revenu = 1000;
   // placeholder value
   quantite = 1;
 
