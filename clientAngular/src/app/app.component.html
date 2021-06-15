@@ -5,9 +5,16 @@
     </figure>
     <span id="worldname">{{world.name}}</span>
   </div>
-  <div><span [innerHTML]="world.money | bigvalue"></span><span> péchés pardonnés</span></div>
-  <div><span>multiplicateur</span></div>
-  <div><span>ID du joueur</span></div>
+  <div id="money">
+    <span [innerHTML]="world.money | bigvalue"></span><span> péchés pardonnés</span>
+  </div>
+  <div id="multiplicateur">
+    <span>multiplicateur</span>
+  </div>
+  <div id="quantite">
+    <button (click)="switchBuyQuantity()" mat-stroked-button color="primary">{{qtmulti}}</button>
+  </div>
+  <div id="joueurID"><span>ID du joueur</span></div>
 </header>
 <div class="main">
   <aside>
@@ -21,11 +28,13 @@
     </nav>
   </aside>
   <section class="product">
-    <app-product [prod]="world.products.product[0]"></app-product>
-    <app-product [prod]="world.products.product[1]"></app-product>
-    <app-product [prod]="world.products.product[2]"></app-product>
-    <app-product [prod]="world.products.product[3]"></app-product>
-    <app-product [prod]="world.products.product[4]"></app-product>
-    <app-product [prod]="world.products.product[5]"></app-product>
+    <app-product *ngFor="let productID of [1,2,3,4,5,6]"
+      [prod]="world.products.product[productID]"
+      [qtmulti]="qtmulti"
+      [buyQuantities]="buyQuantities"
+      [worldMoney]="world.money"
+      (notifyProduction)="onProductionDone($event)"
+      (notifyBuy)="onBuyDone($event)">
+    </app-product>
   </section>
 </div>

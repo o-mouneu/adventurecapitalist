@@ -1,21 +1,14 @@
 <div class="col-md-6">
-    <button (click)="startFabrication()" mat-stroked-button class="production" color="primary">
+    <button (click)="startFabrication()" class="production" mat-stroked-button color="primary">
         <figure>
             <img src="../assets/img/product-placeholder.png"/>
         </figure>
-        <span>product.name</span>
-        <mat-progress-bar mode="determinate" [value]="progressbarvalue" class="progressbar"></mat-progress-bar>
+        <mat-progress-spinner class="example-margin" mode="determinate" [value]="progressbarvalue"></mat-progress-spinner>
+        <!-- placeholder value -->
+        <span>{{quantite}} product.name</span>    
     </button>
-    <button class="buy mat-stroked-button">
-        <span>x1 : coût</span>
+    <button (click)="buyProduct()" class="buy" mat-stroked-button color="primary">
+        <!-- placeholder value -->
+        <span>Acheter {{qtmulti}} pour {{quantityForCostOfBuy()[1]}}</span>
     </button>
 </div>
-<mat-progress-spinner class="example-margin" mode="determinate" [value]="progressbarvalue"></mat-progress-spinner>
-
-
-<!--<div>
-    <figure class="logo">
-        <img [attr.src]="product.logo"/>
-    </figure>
-    <span id="worldname">{{product.name}}</span>
-</div>-->

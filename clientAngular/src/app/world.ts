@@ -15,8 +15,11 @@ export class World {
     managers: { "pallier": Pallier[]};
 
     constructor(name:string, logo:string) {
-        this.money = 1000000000000000;
+        // placeholder value
+        this.money = 0;
+        // placeholder value
         this.name = name;
+        // placeholder value
         this.logo = logo;
         this.products = { "product":[ ] } ;
         this.managers = { "pallier":[ ] };
@@ -38,6 +41,12 @@ export class Product {
     timeleft: number;
     managerUnlocked: boolean;
     palliers : { "pallier" : Pallier[]};
+    
+    constructor(){
+        this.revenu = 1;
+        this.cout = 1;
+    }
+
 }
 
 export class Pallier {
