@@ -57,6 +57,8 @@ import javax.xml.bind.annotation.XmlType;
     "managerUnlocked",
     "palliers"
 })
+
+
 public class ProductType {
 
     protected int id;

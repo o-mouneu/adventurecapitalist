@@ -65,9 +65,9 @@ public class PalliersType {
      * 
      */
     public List<PallierType> getPallier() {
-        if (pallier == null) {
+        /*if (pallier == null) {
             pallier = new ArrayList<PallierType>();
-        }
+        }*/
         return this.pallier;
     }
 

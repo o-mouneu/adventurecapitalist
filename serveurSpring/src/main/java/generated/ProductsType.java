@@ -67,9 +67,9 @@ public class ProductsType {
      * 
      */
     public List<ProductType> getProduct() {
-        if (product == null) {
+        /*if (product == null) {
             product = new ArrayList<ProductType>();
-        }
+        }*/
         return this.product;
     }
 
