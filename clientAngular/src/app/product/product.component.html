@@ -4,20 +4,17 @@
             <img src="../assets/img/product-placeholder.png"/>
         </figure>
         <mat-progress-spinner class="example-margin" mode="determinate" [value]="progressbarvalue" color="accent"></mat-progress-spinner>
-        <!-- placeholder value -->
-        <span>{{quantite}} product.name</span>    
+        <span>{{product.quantite}} {{product.name}}</span>    
     </button>
     <div *ngIf="isProductBuyable(); then enabledButton else disabledButton"></div>
     <ng-template #enabledButton>
         <button (click)="buyProduct()" class="buy" mat-raised-button color="accent">
-            <!-- placeholder value -->
-            <span>Acheter {{quantityForCostOfBuy()[0]}} product.name pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
+            <span>Acheter {{quantityForCostOfBuy()[0]}} {{product.name}} pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
         </button>
     </ng-template>
     <ng-template #disabledButton>
         <button class="buy" mat-raised-button disabled>
-            <!-- placeholder value -->
-            <span>Acheter {{quantityForCostOfBuy()[0]}} product.name pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
+            <span>Acheter {{quantityForCostOfBuy()[0]}} {{product.name}} pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
         </button>
     </ng-template>
 </div>

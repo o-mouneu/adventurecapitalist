@@ -1,7 +1,9 @@
 <header>
   <div id="title">
     <figure class="logo">
-      <img [attr.src]="world.logo"/>
+      <!-- placeholder value-->
+      <!-- <img [attr.src]="world.logo" /> -->
+      <img [attr.src]="logo" />
     </figure>
     <span id="worldname">{{world.name}}</span>
   </div>
@@ -21,21 +23,54 @@
   <aside>
     <nav>
       <ul>
-        <li>Unlocks</li>
-        <li>Upgrades</li>
-        <li>Manager</li>
-        <li>Investors</li>
+        <li><a href="#" mat-raised-button color="accent">Unlocks</a></li>
+        <li><a href="#" mat-raised-button color="accent">Upgrades</a></li>
+        <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent">Managers</a></li>
+        <li><a href="#" mat-raised-button color="accent">Investors</a></li>
+        <li>
+          <iframe
+            src="https://www.youtube.com/embed/ygr5AHufBN4?autoplay=1&loop=1&playlist=ygr5AHufBN4"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </li>
       </ul>
     </nav>
   </aside>
   <section class="product">
-    <app-product *ngFor="let productID of [1,2,3,4,5,6]"
-      [prod]="world.products.product[productID]"
-      [qtmulti]="qtmulti"
-      [buyQuantities]="buyQuantities"
-      [worldMoney]="world.money"
-      (notifyProduction)="onProductionDone($event)"
-      (notifyBuy)="onBuyDone($event)">
+    <app-product *ngFor="let productID of [0,1,2,3,4,5]"
+    [prod]="world.products.product[productID]"
+    [qtmulti]="qtmulti"
+    [buyQuantities]="buyQuantities"
+    [worldMoney]="world.money"
+    (notifyProduction)="onProductionDone($event)"
+    (notifyBuy)="onBuyDone($event)">
     </app-product>
   </section>
 </div>
+<!--<div *ngIf="showManagers" class="modal">
+  <div>
+    <h1 class="title">Managers make you feel better !</h1>
+  </div>
+  <div>
+    <div *ngFor="let manager of world.managers.pallier">
+      <div *ngIf="!manager.unlocked" class="managerslayout">
+        <div>
+          <div class="logo"><img class="round" [attr.src]="server+manager.logo" /> </div>
+        </div>
+        <div>
+          <div class="managername"> {{ manager.name}} </div>
+          <div class="managercible"> {{ world.products.product[manager.idcible-1].name }} </div>
+          <div class="managercost"> {{ manager.seuil}} </div>
+        </div>
+        <div>
+          <div class="hirebutton" (click)="hireManager(manager)"
+            [ngClass]="{'selectable' : (world.money >= manager.seuil)}">Hire !</div>
+        </div>
+      </div>
+    </div>
+    <button class="closebutton" mat-raised-button color="primary" (click)="showManagers(false)">Close</button>
+  </div>
+</div>-->

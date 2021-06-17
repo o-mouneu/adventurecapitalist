@@ -34,4 +34,9 @@ export class RestserviceService {
     .toPromise().catch(this.handleError);
   }
 
+  deleteWorld(): Promise<World> {
+    return this.http.delete(this._server + "adventureisis/generic/world")
+    .toPromise().catch(this.handleError);
+  }
+
 }

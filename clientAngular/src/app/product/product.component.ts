@@ -31,8 +31,6 @@ export class ProductComponent implements OnInit {
   // placeholder value
   quantite = 1;
 
-  coutInitial = this.cout;
-
   product: Product;
   _prod: Product;
   _qtmulti: string;
@@ -86,9 +84,7 @@ export class ProductComponent implements OnInit {
   }
 
   @Output()
-  // notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
-  // placeholder value
-  notifyProduction: EventEmitter<Array<number>> = new EventEmitter<Array<number>>();
+  notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
 
   @Output()
   notifyBuy: EventEmitter<number> = new EventEmitter<number>();
@@ -104,11 +100,11 @@ export class ProductComponent implements OnInit {
       this.progressbarvalue = 0;
       // this.notifyProduction.emit(this.product);
       // placeholder value
-      this.notifyProduction.emit([this.quantite,this.revenu]);
+      this.notifyProduction.emit(this.product);
       this.isProductBuyable();
     }
     if (this.timeleft > 0){
-      this.progressbarvalue = ((this.vitesse - this.timeleft) / this.vitesse) * 100;
+      this.progressbarvalue = ((this.product.vitesse - this.timeleft) / this.product.vitesse) * 100;
     }
 
   }
@@ -120,8 +116,8 @@ export class ProductComponent implements OnInit {
 
   buyProduct(){
     if (this.isProductBuyable()){
-      this.quantite += this._quantityForCostOfBuy[0];
-      this.cout = this.cout * (this.croissance ** this._quantityForCostOfBuy[0]);
+      this.product.quantite += this._quantityForCostOfBuy[0];
+      this.product.cout = this.product.cout * (this.product.croissance ** this._quantityForCostOfBuy[0]);
       this.notifyBuy.emit(this._quantityForCostOfBuy[1]);
     }
   }
@@ -165,18 +161,21 @@ export class ProductComponent implements OnInit {
     return this._quantityForCostOfBuy[1].toFixed(2);
   }
 
-  // FORMULE NE VA PAS : RETOURNE cout x (r^n) mais ne prend pas en compte les éléments précédents de la suite géométrique
+  // Application ne fonctionne plus (propriétés undefined) quand ligne 168 remplace 169
   calcCostForQuantity(factor: number){
     let value = 1;
 
+    //value = this.product.cout * ( (1 - this.product.croissance**factor) / (1 - this.product.croissance) );
     value = this.cout * ( (1 - this.croissance**factor) / (1 - this.croissance) );
 
     return value;
   }
 
+  // Application ne fonctionne plus (propriétés undefined) quand ligne 178 remplace 179
   calcMaxCanBuy(){
     let value = 1;
 
+    //let x = 1 - (1 - this.product.croissance) * (this.worldMoney / this.product.cout);
     let x = 1 - (1 - this.croissance) * (this.worldMoney / this.cout);
     value = this.logbase(x, this.croissance);
     value = Math.floor(value);

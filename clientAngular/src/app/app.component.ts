@@ -14,29 +14,45 @@ export class AppComponent {
   // placeholder value
   img = 'assets/img/';
   // placeholder value
-  logo = this.img+'armoirie-vatican.svg';
+  _logo = this.img+'armoirie-vatican.svg';
 
-  // placeholder value
-  // world: World = new World();
-  world: World = new World(this.title, this.logo);
+  world: World = new World();
   server: string;
 
   buyQuantities = ["x 1", "x 10", "x 100", "Max"];
   qtmultiIndex = 0;
   qtmulti = this.buyQuantities[this.qtmultiIndex];
 
+  _showManagers = false;
+
   constructor(private service: RestserviceService) {
-    this.server = service.server;
+    /*this.server = service.server;
+    service.deleteWorld().then(
+      world => {
+        this.world = world;
+      }
+    );*/
     service.getWorld().then(
       world => {
         this.world = world;
       }
     );
+  }
 
+  get logo(){
+    return this._logo;
+  }
+
+  public get showManagers(){
+    return this._showManagers;
+  }
+
+  public set showManagers(value:boolean){
+    this._showManagers = value;
   }
 
   onProductionDone(event){
-    this.world.money += event[0] * event[1];
+    this.world.money += event.quantite * event.revenu;
   }
 
   onBuyDone(event){

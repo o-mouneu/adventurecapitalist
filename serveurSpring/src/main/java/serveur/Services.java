@@ -171,9 +171,10 @@ public class Services {
 		World world = getWorld(username);
 		ProductType worldProduct = findProductById(world, product.getId());
 		
-		if( worldProduct != null ) {
+		/*if( worldProduct != null ) {
 			wo
-		}
+		}*/
+		return true;
 	}
 			
 			

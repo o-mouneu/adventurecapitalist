@@ -17,7 +17,7 @@
 			<croissance>1.01</croissance>
 			<revenu>0.1</revenu>
 			<vitesse>1000</vitesse>
-			<quantite>0</quantite>
+			<quantite>1</quantite>
 			<timeleft>0</timeleft>
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
@@ -40,7 +40,7 @@
 			<croissance>1.05</croissance>
 			<revenu>0.5</revenu>
 			<vitesse>2000</vitesse>
-			<quantite>0</quantite>
+			<quantite>1</quantite>
 			<timeleft>0</timeleft>
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
@@ -63,7 +63,7 @@
 			<croissance>1.10</croissance>
 			<revenu>10</revenu>
 			<vitesse>5000</vitesse>
-			<quantite>0</quantite>
+			<quantite>1</quantite>
 			<timeleft>0</timeleft>
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
@@ -86,7 +86,7 @@
 			<croissance>1.19</croissance>
 			<revenu>100</revenu>
 			<vitesse>7000</vitesse>
-			<quantite>0</quantite>
+			<quantite>1</quantite>
 			<timeleft>0</timeleft>
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
@@ -109,7 +109,7 @@
 			<croissance>1.05</croissance>
 			<revenu>2500</revenu>
 			<vitesse>10</vitesse>
-			<quantite>0</quantite>
+			<quantite>1</quantite>
 			<timeleft>10</timeleft>
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
@@ -132,7 +132,7 @@
 			<croissance>1.05</croissance>
 			<revenu>300000</revenu>
 			<vitesse>300</vitesse>
-			<quantite>0</quantite>
+			<quantite>1</quantite>
 			<timeleft>300</timeleft>
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>

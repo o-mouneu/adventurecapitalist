@@ -36,7 +36,6 @@ public class Webservice {
 		String username = request.getHeader("X-user");
 		return Response.ok(services.getWorld(username)).build();
 	}
-		
 	
 	// Achat d'un produit ou lancement manuel de sa production 
 	@PUT
@@ -44,7 +43,7 @@ public class Webservice {
 	@Produces(MediaType.APPLICATION_XML)
 	public Response putProduct(@Context HttpServletRequest request, ProductType p) {
 		String username = request.getHeader("X-user");
-		services.buyProduct(p);
+		//services.buyProduct(p);
 		return null;
 	}
 	
