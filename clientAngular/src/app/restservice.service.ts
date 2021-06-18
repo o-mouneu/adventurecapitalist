@@ -39,4 +39,8 @@ export class RestserviceService {
     .toPromise().catch(this.handleError);
   }
 
+  putProduct(product: Product){
+    this.http.put<Product>(this._server + "adventureisis/generic/product", product);
+  }
+
 }

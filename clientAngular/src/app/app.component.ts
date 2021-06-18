@@ -26,12 +26,6 @@ export class AppComponent {
   _showManagers = false;
 
   constructor(private service: RestserviceService) {
-    /*this.server = service.server;
-    service.deleteWorld().then(
-      world => {
-        this.world = world;
-      }
-    );*/
     service.getWorld().then(
       world => {
         this.world = world;
@@ -51,12 +45,22 @@ export class AppComponent {
     this._showManagers = value;
   }
 
-  onProductionDone(event){
-    this.world.money += event.quantite * event.revenu;
+  onManualProductionStarted(product: Product){
+    this.service.putProduct(product);
+    console.log("onManualProductionStarted sent to server:");
+    console.log(product);
   }
 
-  onBuyDone(event){
-    this.world.money -= event;
+  onProductionDone(product: Product){
+    this.world.money += product.quantite * product.revenu;
+  }
+
+  onBuyDoneProduct(product: Product){
+    this.service.putProduct(product);
+  }
+
+  onBuyDoneCost(costOfBuy: number){
+    this.world.money -= costOfBuy;
   }
 
   switchBuyQuantity(){
