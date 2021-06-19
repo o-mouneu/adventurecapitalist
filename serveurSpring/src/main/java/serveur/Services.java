@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.Iterator;
 
+import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -26,17 +27,25 @@ public class Services {
 	World readWorldFromXml(String username) {
 		
 		File fichierJoueur = new File(worldPath + username + "-world.xml");
+		boolean playerExists = true;
 		
 		if( !fichierJoueur.exists() ) {
 			fichierJoueur = new File( worldPath + "world.xml");
+			playerExists = false;
 		}
 		
 		JAXBContext cont;
 		try {
 			cont = JAXBContext.newInstance(World.class);
 			Unmarshaller u = cont.createUnmarshaller();
-			World monde = (World) u.unmarshal(fichierJoueur);
-			return monde;
+			World world = (World) u.unmarshal(fichierJoueur);
+			
+			// definir le temps de debut du monde
+			if( !playerExists ) {
+				world.setLastupdate( System.currentTimeMillis() );
+			}
+			
+			return world;
 
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
@@ -65,17 +74,18 @@ public class Services {
 	
 	World getWorld(String username) {
 		World world = readWorldFromXml(username);
-		
+
 		// mettre à jour score
 		calculateScore(world);
 		world.setLastupdate(System.currentTimeMillis());
+
 		
 		saveWorldToXml(username, world);
 		return world;
 	}
 	
-	
-	public Boolean updateProduct(String username, ProductType newProduct) {
+
+	public Boolean updateProduct(String  username, ProductType newProduct) {
 		World world = getWorld(username);
 		
 		ProductType product = findProductById(world, newProduct.getId());
@@ -86,20 +96,62 @@ public class Services {
 		
 		int qtchange = newProduct.getQuantite() - product.getQuantite();
 		
+		System.out.println("updateProduct " + product.getName() + " - qtChange: " + qtchange);
+		
 		if(qtchange > 0) {
+			
 			double coutBase = product.getCout(); double croissance = product.getCroissance();
 			double coutTotal = (coutBase*Math.pow(croissance,croissance)) / (1 - croissance);
 			if( world.getMoney() < coutTotal ) {
+				System.out.println("\tPas assez d'argent");
 				return false;
 			} else {
 				world.setMoney(world.getMoney() - coutTotal);
 				product.setQuantite(qtchange);
-				product.setTimeleft(System.currentTimeMillis());
-				return true;
+				product.setTimeleft(0);
+				System.out.println("\t" + qtchange + " produits achetés");
 			}
 		} else {
 			if (product.getTimeleft() == 0) {
 				product.setTimeleft( product.getVitesse() );
+				System.out.println("\tDébut de production");
+			}
+		}
+
+		saveWorldToXml(username, world);
+		return true;
+	}
+	
+	public Boolean updateProductById(String  username, int idProduct, int quantite) {
+		World world = getWorld(username);
+		
+		ProductType product = findProductById(world, idProduct);
+		
+		if( product == null ) {
+			return false;
+		}
+		
+		int qtchange = quantite - product.getQuantite();
+		
+		System.out.println("updateProduct " + product.getName() + " - qtChange: " + qtchange);
+		
+		if(qtchange > 0) {
+			
+			double coutBase = product.getCout(); double croissance = product.getCroissance();
+			double coutTotal = (coutBase*Math.pow(croissance,croissance)) / (1 - croissance);
+			if( world.getMoney() < coutTotal ) {
+				System.out.println("\tPas assez d'argent");
+				return false;
+			} else {
+				world.setMoney(world.getMoney() - coutTotal);
+				product.setQuantite(qtchange);
+				product.setTimeleft(0);
+				System.out.println("\t" + qtchange + " produits achetés");
+			}
+		} else {
+			if (product.getTimeleft() == 0) {
+				product.setTimeleft( product.getVitesse() );
+				System.out.println("\tDébut de production");
 			}
 		}
 
@@ -141,6 +193,10 @@ public class Services {
 	}
 	
 	
+/*
+ * FINDERS
+ */
+	
 	public ProductType findProductById(World world, int id) {
 		
 		List<ProductType> productList = world.getProducts().getProduct();
@@ -167,16 +223,7 @@ public class Services {
 				
 	}
 	
-	public boolean buyProduct(String username, ProductType product) {
-		World world = getWorld(username);
-		ProductType worldProduct = findProductById(world, product.getId());
-		
-		/*if( worldProduct != null ) {
-			wo
-		}*/
-		return true;
-	}
-			
+	
 			
 			
 	public int calculateScore(World world) {
@@ -185,57 +232,62 @@ public class Services {
 		
 		double nouveauxBenefices = 0;
 		for(int p=0; p<productList.size(); p++) {
-			int nouveauxProduits = updateProduct(world, productList.get(p));
+			int nouveauxProduits = updateProductQuantity(world, productList.get(p));
+			System.out.println( "\t P: " + productList.get(p).getName() + " " + productList.get(p).getQuantite() + " (+" + nouveauxProduits + ")");
 			nouveauxBenefices += nouveauxProduits * productList.get(p).getRevenu() * (1 + world.getActiveangels() * world.getAngelbonus()/100);
 		}
-		
+		System.out.println("calculateScore - money = " + world.getMoney() + " + " + nouveauxBenefices);
 		world.setMoney(world.getMoney() + nouveauxBenefices);
 		// Calcul bonus anges
 		// Calcul bonus profits
+		
+		
 		return 0;
 		
 	}
 	
-	public int updateProduct(World world, ProductType produit) {
+	public int updateProductQuantity(World world, ProductType worldProduct) {
 		
-		long timeleft = produit.getTimeleft();
-		long dernierMaj = world.getLastupdate();
-		int vitesse = produit.getVitesse();
+		long timeleft = worldProduct.getTimeleft();
+		long lastUpdate = world.getLastupdate();
+		long timeCurrent = System.currentTimeMillis();
+
+		int vitesse = worldProduct.getVitesse();
+		long duree = timeCurrent - lastUpdate;
 		
-		long tempsActuel = System.currentTimeMillis();
-		long duree = tempsActuel - dernierMaj;
+		int nbNouveauxProduits=0;
 		
-		//System.out.println( productList.get(p).getName() + "  debut : " + tempsDebut + " - duree " + duree + " - vitesse " + vitesse);
-		
-		int nbNouveauxProduits = 0;
 		
 		// SI Produit a un Manager
-		if( produit.isManagerUnlocked() ) {
+		if( worldProduct.isManagerUnlocked() ) {
+			System.out.println("\t\tManaged");
 			if( duree-timeleft > 0 ) {
 				long nouvelleDuree = (duree-timeleft);
 				nbNouveauxProduits = (int) (nouvelleDuree / vitesse) + 1;
-				produit.setTimeleft( nouvelleDuree - vitesse*nbNouveauxProduits-1 );
+				worldProduct.setTimeleft( nouvelleDuree - vitesse*(nbNouveauxProduits-1) );
 			} else {
 				// Le produit n'a pas fini d'être créé
-				produit.setTimeleft(timeleft-duree);
+				worldProduct.setTimeleft(timeleft-duree);
 			}
 			
 		} else {
 			
 			// SI le produit est en cours de production
 			if( timeleft > 0 ) {
+				
 				// calculTimeleft => verifier si un produit créé pendant temps écoulé
 				long calculTimeleft = duree-timeleft;
+				
 				// Le produit a été créé durant le temps écoulé
 				if( calculTimeleft >= 0 ) {
 					nbNouveauxProduits = 1;
+					worldProduct.setTimeleft(0);
 				} else {
-					produit.setTimeleft(timeleft-duree);
+					worldProduct.setTimeleft(timeleft-duree);
 				}	
 			}
 		}
 		
-		produit.setQuantite( produit.getQuantite() + nbNouveauxProduits );
 		return nbNouveauxProduits;
 	}
 	

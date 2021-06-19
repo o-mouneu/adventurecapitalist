@@ -9,13 +9,18 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import generated.PallierType;
 import generated.ProductType;
+import generated.World;
 
 @RestController
 @Path("generic")
@@ -37,15 +42,34 @@ public class Webservice {
 		return Response.ok(services.getWorld(username)).build();
 	}
 	
+	
 	// Achat d'un produit ou lancement manuel de sa production 
 	@PUT
 	@Path("product")
 	@Produces(MediaType.APPLICATION_XML)
-	public Response putProduct(@Context HttpServletRequest request, ProductType p) {
+	public ResponseBuilder putProduct(@Context HttpServletRequest request, ProductType p) {
 		String username = request.getHeader("X-user");
-		//services.buyProduct(p);
-		return null;
+		
+		if(	!services.updateProduct(username, p) ) {
+			//return Response.status(404)
+			return Response.ok();
+
+		}
+		
+		return Response.ok();
+		
 	}
+	
+	@GET
+	@Path("product")
+	@Produces( {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON} )
+	public Response putProductGET(@Context HttpServletRequest request, @RequestParam int id) {
+		String username = request.getHeader("X-user");
+		System.out.println("Get PRODUCT " + id);
+		return Response.ok(services.getWorld(username)).build();
+	}
+	
+	
 	
 	/*
 	 *  Achat du manager du produit

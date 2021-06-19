@@ -147,6 +147,7 @@ public class World {
      * 
      */
     public void setMoney(double value) {
+    	System.out.println("Set money " + value);
         this.money = value;
     }
 
