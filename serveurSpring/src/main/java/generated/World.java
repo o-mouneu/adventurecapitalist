@@ -8,6 +8,8 @@
 
 package generated;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -338,6 +340,7 @@ public class World {
     public PalliersType getManagers() {
         return managers;
     }
+    
 
     /**
      * Définit la valeur de la propriété managers.

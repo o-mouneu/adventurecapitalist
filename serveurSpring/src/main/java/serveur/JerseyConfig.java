@@ -17,12 +17,6 @@ public class JerseyConfig extends ResourceConfig {
 		register(Webservice.class);
 		register(CORSResponseFilter.class);
 	}
-	
-	@GET
-	@Path("api")
-	public String getFoos(@RequestParam("text") String id) {
-	    System.out.println("ID = " + id);
-		return "ID: " + id;
-	}
+
 }
 
