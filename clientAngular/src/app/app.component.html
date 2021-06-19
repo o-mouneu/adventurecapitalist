@@ -41,12 +41,14 @@
   </aside>
   <section class="product">
     <app-product *ngFor="let productID of [0,1,2,3,4,5]"
-    [prod]="world.products.product[productID]"
-    [qtmulti]="qtmulti"
-    [buyQuantities]="buyQuantities"
-    [worldMoney]="world.money"
-    (notifyProduction)="onProductionDone($event)"
-    (notifyBuy)="onBuyDone($event)">
+      [product]="world.products.product[productID]"
+      [qtmulti]="qtmulti"
+      [buyQuantities]="buyQuantities"
+      [worldMoney]="world.money"
+      (startManualProduction)="onManualProductionStarted($event)"
+      (notifyProduction)="onProductionDone($event)"
+      (notifyBuyProduct)="onBuyDone($event)"
+      (notifyBuyCost)="onBuyDone($event)">
     </app-product>
   </section>
 </div>

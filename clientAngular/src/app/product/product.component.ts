@@ -21,35 +21,42 @@ export class ProductComponent implements OnInit {
   // placeholder value
   logo = this.img+'product-placeholder.png';
   // placeholder value
-  vitesse = 200;
+  //vitesse = 200;
   // placeholder value
-  cout = 1;
+  //cout = 1;
   // placeholder value
-  croissance = 1.01;
+  //croissance = 1.01;
   // placeholder value
-  revenu = 1000;
+  //revenu = 1000;
   // placeholder value
-  quantite = 1;
+  //quantite = 1;
 
-  product: Product;
-  _prod: Product;
+  _product: Product;
   _qtmulti: string;
   _buyQuantities: Array<string>;
   _worldMoney: number;
   // _quantityForCostOfBuy : [factor: number, cost: number]
   _quantityForCostOfBuy: Array<number>;
 
+  _onProduction: boolean = false;
+
   constructor() {
   }
   
   ngOnInit(): void {
-    this.quantityForCostOfBuy();
+    let prod = new Product();
+    this.product = prod;
     setInterval(() => { this.calcScore(); }, 30);
+    this.quantityForCostOfBuy();
+  }
+
+  get product(){
+    return this._product;
   }
 
   @Input()
-  public set prod(value: Product) {
-      this.product = value;
+  set product(value: Product) {
+      this._product = value;
   }
 
   @Input()
@@ -84,46 +91,60 @@ export class ProductComponent implements OnInit {
   }
 
   @Output()
-  notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
+  startManualProduction: EventEmitter<Product> = new EventEmitter<Product>();
 
   @Output()
-  notifyBuy: EventEmitter<number> = new EventEmitter<number>();
+  notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
+
+  // TO CHANGE SO IT PASSES ALSO THE PRODUIT YOU KNOW BAGUETTE
+  @Output()
+  notifyBuyProduct: EventEmitter<Product> = new EventEmitter<Product>();
+
+  @Output()
+  notifyBuyCost: EventEmitter<number> = new EventEmitter<number>();
 
   calcScore(){
 
-    if ( this.timeleft !=0 ){
-      this.timeleft = this.timeleft - (Date.now() - this.lastupdate);
+    if ( this.product.timeleft !=0 ){
+      this.product.timeleft = this.product.timeleft - (Date.now() - this.lastupdate);
       this.lastupdate = Date.now();
     }
-    if (this.timeleft < 0){
-      this.timeleft = 0;
+    if (this.product.timeleft < 0){
+      this.product.timeleft = 0;
       this.progressbarvalue = 0;
-      // this.notifyProduction.emit(this.product);
-      // placeholder value
+      this._onProduction = false;
       this.notifyProduction.emit(this.product);
-      this.isProductBuyable();
+      console.log("notifyProduction sent to app.component");
     }
-    if (this.timeleft > 0){
-      this.progressbarvalue = ((this.product.vitesse - this.timeleft) / this.product.vitesse) * 100;
+    if (this.product.timeleft > 0){
+      this.progressbarvalue = ((this.product.vitesse - this.product.timeleft) / this.product.vitesse) * 100;
     }
 
   }
 
   startFabrication(){
-    this.timeleft = this.vitesse;
-    this.lastupdate = Date.now();
+    if( !this._onProduction ){
+      this._onProduction = true;
+      this.startManualProduction.emit(this.product);
+      console.log("startManualProduction sent to app.component");
+      this.product.timeleft = this.product.vitesse;
+      this.lastupdate = Date.now();
+    }
   }
 
   buyProduct(){
     if (this.isProductBuyable()){
       this.product.quantite += this._quantityForCostOfBuy[0];
       this.product.cout = this.product.cout * (this.product.croissance ** this._quantityForCostOfBuy[0]);
-      this.notifyBuy.emit(this._quantityForCostOfBuy[1]);
+      this.notifyBuyCost.emit(this._quantityForCostOfBuy[1]);
+      console.log("notifyBuyCost sent to app.component");
+      this.notifyBuyProduct.emit(this.product);
+      console.log("notifyBuyProduct sent to app.component");
     }
   }
 
   isProductBuyable(){
-    return ( this._quantityForCostOfBuy[1] <= this.worldMoney);
+    return ( this._quantityForCostOfBuy[1] <= this.worldMoney );
   }
 
   quantityForCostOfBuy(){
@@ -165,8 +186,8 @@ export class ProductComponent implements OnInit {
   calcCostForQuantity(factor: number){
     let value = 1;
 
-    //value = this.product.cout * ( (1 - this.product.croissance**factor) / (1 - this.product.croissance) );
-    value = this.cout * ( (1 - this.croissance**factor) / (1 - this.croissance) );
+    value = this.product.cout * ( (1 - this.product.croissance**factor) / (1 - this.product.croissance) );
+    //value = this.cout * ( (1 - this.croissance**factor) / (1 - this.croissance) );
 
     return value;
   }
@@ -175,9 +196,9 @@ export class ProductComponent implements OnInit {
   calcMaxCanBuy(){
     let value = 1;
 
-    //let x = 1 - (1 - this.product.croissance) * (this.worldMoney / this.product.cout);
-    let x = 1 - (1 - this.croissance) * (this.worldMoney / this.cout);
-    value = this.logbase(x, this.croissance);
+    let x = 1 - (1 - this.product.croissance) * (this.worldMoney / this.product.cout);
+    //let x = 1 - (1 - this.croissance) * (this.worldMoney / this.cout);
+    value = this.logbase(x, this.product.croissance);
     value = Math.floor(value);
 
     return value;
