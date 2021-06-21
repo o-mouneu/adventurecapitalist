@@ -7,7 +7,8 @@ import { World, Pallier, Product } from './world';
 })
 export class RestserviceService {
 
-  _server: string = "http://localhost:8080/";
+  _server: string = "http://localhost:8080/"
+  //_server: string = "http://10.157.5.33:8080/";
   _user: string = "";
 
   constructor(private http: HttpClient) { }
@@ -40,7 +41,9 @@ export class RestserviceService {
   }
 
   putProduct(product: Product){
-    this.http.put<Product>(this._server + "adventureisis/generic/product", product);
+    console.log("putProduct triggered :");
+    console.log(product);
+    this.http.put<Product>(this._server + "adventureisis/generic/product", product).toPromise().catch(this.handleError);
   }
 
 }
