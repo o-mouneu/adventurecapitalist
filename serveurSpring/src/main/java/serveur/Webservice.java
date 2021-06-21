@@ -51,35 +51,25 @@ public class Webservice {
 	@PUT
 	@Path("product")
 	@Produces(MediaType.APPLICATION_XML)
-	public ResponseBuilder putProduct(@Context HttpServletRequest request, ProductType p) {
+	public Response putProduct(@Context HttpServletRequest request, ProductType p) {
 		String username = request.getHeader("X-user");
 		
 		if(	!services.updateProduct(username, p) ) {
-			return Response.status(202);
-		}
-		
-		return Response.ok();
-		
-	}
-	@PUT
-	@Path("productid")
-	public Response api(@Context HttpServletRequest request, @QueryParam("id") int id, @QueryParam("qte") int qte) {
-		String username = request.getHeader("X-user");
-	    System.out.println("ID = " + id + " - qte " + qte );    
-	    
-	    if(	!services.updateProductById(username, id, qte) ) {
-			return Response.status(202).entity("Achat produit refusé").build();
+			return Response.status(202).build();
 		}
 		
 		return Response.ok().build();
+		
 	}
+	
+	
 	
 	/*
 	 * Set money
 	 */
 	@PUT
 	@Path("money")
-	public Response api(@Context HttpServletRequest request, @QueryParam("qte") int qte) {
+	public Response setMoney(@Context HttpServletRequest request, @QueryParam("qte") int qte) {
 		String username = request.getHeader("X-user");
 		
 	    services.setMoney(username, qte);
@@ -99,9 +89,14 @@ public class Webservice {
 	@Produces(MediaType.APPLICATION_XML)
 	public Response putManager(@Context HttpServletRequest request, PallierType p) {
 		String username = request.getHeader("X-user");
-		return null;
+		
+		if(	!services.updateManager(username, p) ) {
+			return Response.status(202).entity("Achat manager refusé ou manager inexistant").build();
+		}
+		return Response.ok().build();
 	}
 	
+
 	/*
 	 * Achat d'un cash upgrade
 	 * @PARAM : {pallierType}
@@ -124,7 +119,12 @@ public class Webservice {
 	@Produces(MediaType.APPLICATION_XML)
 	public Response putAngelupgrade(@Context HttpServletRequest request, PallierType p) {
 		String username = request.getHeader("X-user");
-		return null;
+
+		if(	!services.updateAngelupgrade(username, p) ) {
+			return Response.status(202).entity("Angel upgrade").build();
+		}
+		
+		return Response.ok().build();
 	}
 	
 	/*
