@@ -25,12 +25,30 @@ export class AppComponent {
 
   _showManagers = false;
 
+  username: any;
+
   constructor(private service: RestserviceService) {
+
+    this.username = localStorage.getItem("username");
+    console.log("username : "+this.username);
+
+    if(this.username == ""){
+      this.username = this.generateRandomUsername();
+      localStorage.setItem("username", this.username);
+      console.log("username was null, set to : "+this.username);
+    }
+
+    service.user = this.username;
+
     service.getWorld().then(
       world => {
+        console.log("getting world...");
         this.world = world;
+        console.log("world got :");
+        console.log(this.world);
       }
     );
+
   }
 
   get logo(){
@@ -69,6 +87,37 @@ export class AppComponent {
       this.qtmultiIndex = 0;
     }
     this.qtmulti = this.buyQuantities[this.qtmultiIndex];
+  }
+
+  hireManager(manager){
+
+  }
+
+  generateRandomUsername(){
+    let titre = ["Abbe","Fidele","Frere"];
+    let nom = ["Pierre","Jean","Marc"];
+    let ID = Math.floor(Math.random() * 100000);
+    let pseudo = titre[this.randIndex(titre)] + "-" + nom[this.randIndex(nom)] + "-" + ID;
+
+    return pseudo;
+  }
+
+  onUsernameChanged(){
+
+    if(this.username == ""){
+      this.username = this.generateRandomUsername();
+      console.log("username was null, set to : "+this.username);
+    }
+
+    console.log("username changed : "+this.username);
+    localStorage.setItem("username", this.username);
+    //this.username = localStorage.getItem("username");
+    console.log("username stored locally : "+this.username);
+    this.service.user = this.username;
+  }
+
+  randIndex(array){
+    return Math.floor(Math.random() * array.length);
   }
 
 }
