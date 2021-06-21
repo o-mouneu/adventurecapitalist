@@ -8,6 +8,8 @@
 
 package generated;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -264,6 +266,25 @@ public class ProductType {
         return palliers;
     }
 
+    /**
+     * Retourne le manager actif
+     * 
+     * @return
+     *     possible object is
+     *     {@link PalliersType }
+     *     
+     */
+    public PallierType getActiveManager() {
+    	PallierType currentManager = null;
+    	List<PallierType> productManagers = palliers.getPallier();
+    	
+    	for(int p=0; p<productManagers.size(); p++) {
+			if( productManagers.get(p).isUnlocked() )
+				currentManager = productManagers.get(p);
+		}
+    	return currentManager;
+    }
+    
     /**
      * Définit la valeur de la propriété palliers.
      * 
