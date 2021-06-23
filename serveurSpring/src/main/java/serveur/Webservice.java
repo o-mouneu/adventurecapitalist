@@ -27,6 +27,10 @@ public class Webservice {
 	
 	Services services;
 	
+	final int querySuccess = 200;
+	final int queryImpossible = 202;
+	
+	
 	public Webservice() {
 		System.out.println("Web services");
 		services = new Services();	
@@ -54,8 +58,11 @@ public class Webservice {
 	public Response putProduct(@Context HttpServletRequest request, ProductType p) {
 		String username = request.getHeader("X-user");
 		
+		if( p == null) {
+			return Response.status(queryImpossible).build();
+		}
 		if(	!services.updateProduct(username, p) ) {
-			return Response.status(202).build();
+			return Response.status(queryImpossible).build();
 		}
 		
 		return Response.ok().build();
@@ -91,7 +98,7 @@ public class Webservice {
 		String username = request.getHeader("X-user");
 		
 		if(	!services.updateManager(username, p) ) {
-			return Response.status(202).entity("Achat manager refusé ou manager inexistant").build();
+			return Response.status(queryImpossible).entity("Achat manager refusé ou manager inexistant").build();
 		}
 		return Response.ok().build();
 	}
@@ -106,8 +113,12 @@ public class Webservice {
 	@Produces(MediaType.APPLICATION_XML)
 	public Response putUpgrade(@Context HttpServletRequest request, PallierType p) {
 		String username = request.getHeader("X-user");
-		return null;
 
+		if(	!services.updateCashupgrade(username, p) ) {
+			return Response.status(queryImpossible).entity("Cash upgrade").build();
+		}
+		
+		return Response.ok().build();
 	}
 	
 	/*
@@ -121,23 +132,28 @@ public class Webservice {
 		String username = request.getHeader("X-user");
 
 		if(	!services.updateAngelupgrade(username, p) ) {
-			return Response.status(202).entity("Angel upgrade").build();
+			return Response.status(queryImpossible).entity("Angel upgrade").build();
 		}
 		
 		return Response.ok().build();
 	}
 	
 	/*
-	 * Remettre à zéro le monde
+	 * Reset le monde
+	 * Calcul du nombre d'anges
 	 */
 	@DELETE
 	@Path("world")
 	@Produces(MediaType.APPLICATION_XML)
 	public Response deleteWorld(@Context HttpServletRequest request) {
 		String username = request.getHeader("X-user");
-		return null;
+
+		if(	!services.resetWorld(username) ) {
+			return Response.status(queryImpossible).entity("Delete world " + username).build();
+		}
+		
+		return Response.ok().build();
 	}
-	
 	
 	
 	
