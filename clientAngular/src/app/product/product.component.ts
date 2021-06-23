@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, HostListener, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { Product } from '../world';
+import { Pallier, Product } from '../world';
 
 @Component({
   selector: 'app-product',
@@ -20,16 +20,6 @@ export class ProductComponent implements OnInit {
   img = '../assets/img/';
   // placeholder value
   logo = this.img+'product-placeholder.png';
-  // placeholder value
-  //vitesse = 200;
-  // placeholder value
-  //cout = 1;
-  // placeholder value
-  //croissance = 1.01;
-  // placeholder value
-  //revenu = 1000;
-  // placeholder value
-  //quantite = 1;
 
   _product: Product;
   _qtmulti: string;
@@ -38,6 +28,7 @@ export class ProductComponent implements OnInit {
   // _quantityForCostOfBuy : [factor: number, cost: number]
   _quantityForCostOfBuy: Array<number>;
 
+  //_managerUnlocked: boolean = false;
   _onProduction: boolean = false;
 
   constructor() {
@@ -46,6 +37,7 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     let prod = new Product();
     this.product = prod;
+    //this.product.managerUnlocked = false;
     setInterval(() => { this.calcScore(); }, 30);
     this.quantityForCostOfBuy();
   }
@@ -56,7 +48,7 @@ export class ProductComponent implements OnInit {
 
   @Input()
   set product(value: Product) {
-      this._product = value;
+    this._product = value;
   }
 
   @Input()
@@ -90,13 +82,20 @@ export class ProductComponent implements OnInit {
     return this._worldMoney;
   }
 
+  /*@Input()
+  set managerUnlocked(value: boolean){
+    this._managerUnlocked = value;
+    if (this._managerUnlocked == true){
+      this.startFabrication(true);
+    }
+  }*/
+
   @Output()
   startManualProduction: EventEmitter<Product> = new EventEmitter<Product>();
 
   @Output()
   notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
 
-  // TO CHANGE SO IT PASSES ALSO THE PRODUIT YOU KNOW BAGUETTE
   @Output()
   notifyBuyProduct: EventEmitter<Product> = new EventEmitter<Product>();
 
@@ -121,6 +120,10 @@ export class ProductComponent implements OnInit {
       console.log("Argent :");
       console.log(this.worldMoney+this.product.revenu*this.product.quantite);
 
+      if( this.product.managerUnlocked ){
+        this.startFabrication(true);
+      }
+
     }
     if (this.product.timeleft > 0){
       this.progressbarvalue = ((this.product.vitesse - this.product.timeleft) / this.product.vitesse) * 100;
@@ -128,11 +131,13 @@ export class ProductComponent implements OnInit {
 
   }
 
-  startFabrication(){
-    if( !this._onProduction ){
+  startFabrication(auto: boolean){
+    if( !this._onProduction && this.product.quantite > 0 ){
       this._onProduction = true;
-      this.startManualProduction.emit(this.product);
-      console.log("startManualProduction sent to app.component");
+      if( !auto ){
+        this.startManualProduction.emit(this.product);
+        console.log("startManualProduction sent to app.component");
+      }
       this.product.timeleft = this.product.vitesse;
       this.lastupdate = Date.now();
     }

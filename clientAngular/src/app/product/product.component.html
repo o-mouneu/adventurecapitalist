@@ -1,5 +1,5 @@
 <div class="col-md-6">
-    <button (click)="startFabrication()" class="production" mat-raised-button color="primary">
+    <button (click)="startFabrication(false)" class="production" mat-raised-button color="primary">
         <figure>
             <img src="../assets/img/product-placeholder.png"/>
         </figure>
@@ -10,7 +10,10 @@
             <span [innerHTML]="product.quantite * product.revenu | bigvalue" class="nombre"></span> péchés
         </p>    
     </button>
-    <div *ngIf="isProductBuyable(); then enabledButton else disabledButton"></div>
+    <button (click)="buyProduct()" class="buy" mat-raised-button [ngClass]="isProductBuyable() ? 'mat-accent' : 'mat-button-disabled'">
+        <span>Acheter {{quantityForCostOfBuy()[0]}} {{product.name}} pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
+    </button>
+    <!--<div *ngIf="isProductBuyable(); then enabledButton else disabledButton"></div>
     <ng-template #enabledButton>
         <button (click)="buyProduct()" class="buy" mat-raised-button color="accent">
             <span>Acheter {{quantityForCostOfBuy()[0]}} {{product.name}} pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
@@ -20,7 +23,7 @@
         <button class="buy" mat-raised-button disabled>
             <span>Acheter {{quantityForCostOfBuy()[0]}} {{product.name}} pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
         </button>
-    </ng-template>
+    </ng-template>-->
 </div>
 <!--
 <div *ngIf="condition; then thenBlock else elseBlock"></div>

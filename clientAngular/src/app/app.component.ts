@@ -90,7 +90,11 @@ export class AppComponent {
   }
 
   hireManager(manager){
-
+    if(this.world.money >= manager.seuil){
+      this.world.money -= manager.seuil;
+      manager.unlocked = true;
+      this.world.products.product[manager.idcible-1].managerUnlocked = true;
+    }
   }
 
   generateRandomUsername(){

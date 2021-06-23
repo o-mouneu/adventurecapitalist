@@ -7,8 +7,8 @@ import { World, Pallier, Product } from './world';
 })
 export class RestserviceService {
 
-  //_server: string = "http://localhost:8080/"
-  _server: string = "http://10.157.5.33:8080/";
+  _server: string = "http://localhost:8080/"
+  //_server: string = "http://10.157.5.33:8080/";
   _user: string = "";
 
   constructor(private http: HttpClient) { }

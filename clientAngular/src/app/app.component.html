@@ -71,8 +71,7 @@
           <div class="managercost"> {{ manager.seuil}} </div>
         </div>
         <div>
-          <div class="hirebutton" (click)="hireManager(manager)"
-            [ngClass]="{'selectable' : (world.money >= manager.seuil)}">Hire !</div>
+          <button (click)="hireManager(manager)" class="hirebutton" mat-raised-button [ngClass]="(world.money >= manager.seuil) ? 'mat-accent' : 'mat-button-disabled'">Hire !</button>
         </div>
       </div>
     </div>

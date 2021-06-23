@@ -330,7 +330,7 @@
 			<name>Pape Innocent IX</name>
 			<logo>TODO</logo>
 			<seuil>512000</seuil>
-			<idcible>2</idcible>
+			<idcible>6</idcible>
 			<ratio>1</ratio>
 			<typeratio>vitesse</typeratio>
 			<unlocked>false</unlocked>

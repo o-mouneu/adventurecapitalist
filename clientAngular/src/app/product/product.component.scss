@@ -9,6 +9,7 @@ div {
 
     button{
         padding: 10px;
+        width: 100%;
     }
 
     .production{
@@ -64,8 +65,11 @@ div {
     }
 
     p{
+        //width: 100%;
         text-align: center;
         display: inline-block;
+        line-height: 25px;
+        vertical-align: middle;
     }
     /*span {
         vertical-align: middle;
