@@ -1,0 +1,31 @@
+
+Charger monde
+	C:\curl\curl.exe -H "X-user: olivier4" -H "Content-Type: application/json" http://localhost:8080/adventureisis/generic/world
+
+Acheter produit
+	"C:\curl\curl.exe" http://localhost:8080/adventureisis/generic/api2?id=1&qte=222
+
+Production produit
+	C:\curl\curl.exe http://localhost:8080/adventureisis/generic/api2?id=1&qte=0
+	
+	
+	
+	
+	
+GET	localhost:8080/adventureisis/generic/world
+	HEADER :
+		X-user olivier6
+
+PUT  localhost:8080/adventureisis/generic/product
+	HEADER :
+		X-user olivier6
+		Content-Type application/json
+		
+	DONNEES :
+		name Eau bénite
+		quantite 1
+
+
+DELETE localhost:8080/adventureisis/generic/world
+	HEADER :
+		X-user olivier6

@@ -28,9 +28,9 @@ public class Services {
 	World readWorldFromXml(String username) {
 		
 		File fichierJoueur = new File(worldPath + username + "-world.xml");
-		boolean playerExists = true;
 		
-		if( !fichierJoueur.exists() ) {
+		boolean playerExists = true;
+		if( !doesPlayerExists(username) ) {
 			fichierJoueur = new File( worldPath + "world.xml");
 			playerExists = false;
 		}
@@ -56,12 +56,12 @@ public class Services {
 		return null;
 	}
 	
+
+	
 	void saveWorldToXml(String username, World world) {
 		try {
 			File fichierJoueur = new File( worldPath + username + "-world.xml");
-			/*OutputStream output = new FileOutputStream(fichierJoueur);
-			output.write(65);    
-			output.close(); */
+			
 			JAXBContext cont = JAXBContext.newInstance(World.class);
 			
 			Marshaller m = cont.createMarshaller();
@@ -72,9 +72,28 @@ public class Services {
 		}
 	}
 	
+	boolean doesPlayerExists( String username ) {
+		File fichierJoueur = new File(worldPath + username + "-world.xml");
+		
+		if( !fichierJoueur.exists() ) {
+			return false;
+		}
+		return true;
+	}
+	
+	boolean deleteFile( String username ) {
+		File fichierJoueur = new File(worldPath + username + "-world.xml");
+		
+		if( !fichierJoueur.delete() ) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 	
 	World getWorld(String username) {
-		System.out.println("Joueur " + username + ")");
+		System.out.println("Joueur " + username );
 		World world = readWorldFromXml(username);
 		
 		// mettre à jour score
@@ -96,21 +115,22 @@ public class Services {
 			System.out.println("Produit introuvable");
 			return false;
 		}
-		int quantiteAchetee = newProduct.getQuantite();
-		int qtchange = quantiteAchetee - product.getQuantite();
+		int nouvelleQuantite = newProduct.getQuantite();
+		int qtchange = nouvelleQuantite - product.getQuantite();
 		
-		System.out.println("\tProduit " + product.getName() + " - qtChange: " + qtchange + "(timeleft: " + product.getTimeleft() + ")");
+		System.out.println("\tProduit " + product.getName() + " - qtChange: " + qtchange + " (timeleft: " + product.getTimeleft() + ")");
 		
 		if(qtchange > 0) {
 			
-			double coutBase = product.getCout(); double croissance = product.getCroissance(); 
-			int productQuantity = product.getQuantite();
-			double coutProduitN = coutBase*Math.pow(croissance, productQuantity);
 
-			double coutTotal = coutBase * (( 1 - Math.pow(croissance, quantiteAchetee)) / (1 - croissance));
-			coutTotal -= coutBase * (( 1 - Math.pow(croissance, productQuantity)) / (1 - croissance));
+			double croissance = product.getCroissance(); 
+			double coutProduitBase = product.getCout();
+
+			//  S = U0 * ( (1-q^n+1) / (1-q))        N+1 = qtChange  car 3 produits = u0+u1+u2 
+			double coutTotal = coutProduitBase * (( 1 - Math.pow(croissance, qtchange)) / (1 - croissance));
+			//coutTotal -= coutBase * (( 1 - Math.pow(croissance, productQuantity)) / (1 - croissance));
 			
-			System.out.println("\tCOUT :  u0 " + coutBase + " un+1(" + productQuantity + ") " + coutProduitN + " TOTAL : " + coutTotal );
+			System.out.println("\tCOUT :  u0 " + coutProduitBase + " un (n=" + qtchange + ") => TOTAL : " + coutTotal );
 			
 			if( world.getMoney() < coutTotal ) {
 				System.out.println("\tPas assez d'argent");
@@ -118,8 +138,11 @@ public class Services {
 			} else {
 			// achat du produit
 				world.setMoney(world.getMoney() - coutTotal);
-				product.setQuantite(quantiteAchetee);
+				product.setQuantite(nouvelleQuantite);
 				product.setTimeleft(0);
+				// Un = U0 * q^n
+				product.setCout(coutProduitBase*Math.pow(croissance, qtchange));
+
 				System.out.println("\t" + qtchange + " produits achetés");
 			}
 			
@@ -364,14 +387,16 @@ public class Services {
 					
 			int nbCyclesProduction = updateProductTimeleft(world, productList.get(p));
 			double bonusAnges =  1 + ( world.getActiveangels() * world.getAngelbonus()/100 );
-			nouveauxBenefices += nbCyclesProduction * productList.get(p).getRevenu() * bonusAnges;
-			System.out.println( "\tP  " + productList.get(p).getName() + " " + productList.get(p).getQuantite() + " (cycles: " + nbCyclesProduction + " = " + nouveauxBenefices + ")");
+			
+			double benefProduit = nbCyclesProduction * productList.get(p).getRevenu() * productList.get(p).getQuantite() * bonusAnges;
+			nouveauxBenefices += benefProduit;
+			
+			System.out.println( "\tP  " + productList.get(p).getName() + " " + productList.get(p).getQuantite() + " (cycles: " + nbCyclesProduction + " = " + benefProduit + "$ )\tTL= " + productList.get(p).getTimeleft());
 
 		}
 		System.out.println("Argent = " + world.getMoney() + " + " + nouveauxBenefices + "$");
 		world.setMoney(world.getMoney() + nouveauxBenefices);
-		// Calcul bonus anges
-		// Calcul bonus profits
+		
 		
 		return 0;
 		
@@ -397,11 +422,11 @@ public class Services {
 		
 		// SI Produit a un Manager
 		if( worldProduct.isManagerUnlocked() ) {
-			System.out.println("\t\tManaged");
+			System.out.println("\tMANAGED");
 			
 			if( duree-timeleft > 0 ) {
 				long dureeSansTimeleft = (duree-timeleft);
-				nbCycleProduction = (int) (dureeSansTimeleft / (vitesse)) + 1;
+				nbCycleProduction = (int) Math.floor(dureeSansTimeleft / (vitesse)) + 1;
 				// Nouveau  Timeleft = dureeSansTimeleft - tempsPassePourLesXCycles
 				worldProduct.setTimeleft( (long) (dureeSansTimeleft - (vitesse)*(nbCycleProduction-1)) );
 
@@ -431,6 +456,28 @@ public class Services {
 		}
 		
 		return nbCycleProduction;
+	}
+	
+	
+	public boolean resetWorld(String username) {
+		World world = getWorld(username);
+		
+		if( !doesPlayerExists(username) ) {
+			return false;
+		}
+		
+		double activeAngels = world.getActiveangels();
+		double totalAngels = world.getTotalangels();
+		double newAngels = (150 * Math.sqrt(world.getMoney()/(Math.pow(10, 15)) - totalAngels) );
+		
+		deleteFile(username);
+		
+		World newWorld = getWorld(username);
+		world.setActiveangels( activeAngels + newAngels );
+		world.setTotalangels( totalAngels + newAngels );
+		System.out.println("[RESET]  " + username + "\tTT Angels " + newWorld.getTotalangels() + "  -  ACTIVE Angels " + newWorld.getActiveangels());
+		
+		return true;
 	}
 	
 	
