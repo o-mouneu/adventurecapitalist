@@ -115,6 +115,12 @@ export class ProductComponent implements OnInit {
       this._onProduction = false;
       this.notifyProduction.emit(this.product);
       console.log("notifyProduction sent to app.component");
+
+      console.log("Coût de "+this._quantityForCostOfBuy[0]+" "+this.product.name+":");
+      console.log(this._quantityForCostOfBuy[1]);
+      console.log("Argent :");
+      console.log(this.worldMoney+this.product.revenu*this.product.quantite);
+
     }
     if (this.product.timeleft > 0){
       this.progressbarvalue = ((this.product.vitesse - this.product.timeleft) / this.product.vitesse) * 100;
@@ -182,22 +188,18 @@ export class ProductComponent implements OnInit {
     return this._quantityForCostOfBuy[1].toFixed(2);
   }
 
-  // Application ne fonctionne plus (propriétés undefined) quand ligne 168 remplace 169
   calcCostForQuantity(factor: number){
     let value = 1;
 
     value = this.product.cout * ( (1 - this.product.croissance**factor) / (1 - this.product.croissance) );
-    //value = this.cout * ( (1 - this.croissance**factor) / (1 - this.croissance) );
 
     return value;
   }
 
-  // Application ne fonctionne plus (propriétés undefined) quand ligne 178 remplace 179
   calcMaxCanBuy(){
     let value = 1;
 
     let x = 1 - (1 - this.product.croissance) * (this.worldMoney / this.product.cout);
-    //let x = 1 - (1 - this.croissance) * (this.worldMoney / this.cout);
     value = this.logbase(x, this.product.croissance);
     value = Math.floor(value);
 

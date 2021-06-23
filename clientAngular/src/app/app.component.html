@@ -11,13 +11,16 @@
     <!-- ajout de &nbsp; pour insérer un espace -->
     <span><span [innerHTML]="world.money | bigvalue"></span>&nbsp;péchés pardonnés</span>
   </div>
-  <div id="multiplicateur">
-    <span>multiplicateur</span>
-  </div>
   <div id="quantite">
     <button (click)="switchBuyQuantity()" mat-raised-button color="primary">{{qtmulti}}</button>
   </div>
-  <div id="joueurID"><span>ID du joueur</span></div>
+  <div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Pseudonyme</mat-label>
+      <input matInput type="text" [(ngModel)]="username" (change)="onUsernameChanged()"/>
+    </mat-form-field>
+  </div>
+  <div id="joueurID"><span [innerHTML]="username"></span></div>
 </header>
 <div class="main">
   <aside>
@@ -28,13 +31,13 @@
         <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent">Managers</a></li>
         <li><a href="#" mat-raised-button color="accent">Investors</a></li>
         <li>
-          <iframe
+          <!--<iframe
             src="https://www.youtube.com/embed/ygr5AHufBN4?autoplay=1&loop=1&playlist=ygr5AHufBN4"
             title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
-          </iframe>
+          </iframe>-->
         </li>
       </ul>
     </nav>
@@ -52,7 +55,7 @@
     </app-product>
   </section>
 </div>
-<!--<div *ngIf="showManagers" class="modal">
+<div *ngIf="showManagers" class="modal">
   <div>
     <h1 class="title">Managers make you feel better !</h1>
   </div>
@@ -73,6 +76,6 @@
         </div>
       </div>
     </div>
-    <button class="closebutton" mat-raised-button color="primary" (click)="showManagers(false)">Close</button>
+    <button class="closebutton" mat-raised-button color="primary" (click)="showManagers=false">Close</button>
   </div>
-</div>-->
+</div>
