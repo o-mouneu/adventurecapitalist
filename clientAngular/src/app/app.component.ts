@@ -192,13 +192,13 @@ export class AppComponent {
 
       if( idCible == 0 ) {
         for(let p=0; p<this.world.products.product.length; p++ ) {
-          this.world.products.product[p].revenu /= bonusGain;
+          this.world.products.product[p].revenu *= bonusGain;
           this.world.products.product[p].vitesse /= bonusVitesse;
         }
       } else {
         let productcible = this.findProductById(idCible);
         if( productcible != null ) {
-          productcible.revenu /= bonusGain;
+          productcible.revenu *= bonusGain;
           productcible.vitesse /= bonusVitesse;
           console.log("Bonus applied");
         } else {

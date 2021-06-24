@@ -15,7 +15,7 @@
 			<logo>TODO</logo>
 			<cout>1</cout>
 			<croissance>1.01</croissance>
-			<revenu>0.1</revenu>
+			<revenu>1</revenu>
 			<vitesse>1000</vitesse>
 			<quantite>1</quantite>
 			<timeleft>0</timeleft>
@@ -26,8 +26,8 @@
 					<logo>TODO</logo>
 					<seuil>500</seuil>
 					<idcible>1</idcible>
-					<ratio>1</ratio>
-					<typeratio>vitesse</typeratio>
+					<ratio>2</ratio>
+					<typeratio>gain</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
 			</palliers>
@@ -38,7 +38,7 @@
 			<logo>TODO</logo>
 			<cout>1</cout>
 			<croissance>1.05</croissance>
-			<revenu>0.5</revenu>
+			<revenu>4</revenu>
 			<vitesse>2000</vitesse>
 			<quantite>0</quantite>
 			<timeleft>0</timeleft>
@@ -50,7 +50,7 @@
 					<seuil>2000</seuil>
 					<idcible>2</idcible>
 					<ratio>1</ratio>
-					<typeratio>vitesse</typeratio>
+					<typeratio>gain</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
 			</palliers>
