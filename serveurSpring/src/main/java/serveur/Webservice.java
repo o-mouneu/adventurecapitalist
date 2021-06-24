@@ -76,10 +76,9 @@ public class Webservice {
 	 */
 	@PUT
 	@Path("money")
-	public Response setMoney(@Context HttpServletRequest request, @QueryParam("qte") int qte) {
+	public Response setMoney(@Context HttpServletRequest request, @QueryParam("money") double money) {
 		String username = request.getHeader("X-user");
-		
-	    services.setMoney(username, qte);
+	    services.setMoney(username, money);
 		
 		return Response.ok().build();
 	}
@@ -97,6 +96,7 @@ public class Webservice {
 	public Response putManager(@Context HttpServletRequest request, PallierType p) {
 		String username = request.getHeader("X-user");
 		
+		System.out.println("Acheter Manager");
 		if(	!services.updateManager(username, p) ) {
 			return Response.status(queryImpossible).entity("Achat manager refusé ou manager inexistant").build();
 		}
@@ -114,6 +114,7 @@ public class Webservice {
 	public Response putUpgrade(@Context HttpServletRequest request, PallierType p) {
 		String username = request.getHeader("X-user");
 
+		System.out.println("Acheter Cash upgrade");
 		if(	!services.updateCashupgrade(username, p) ) {
 			return Response.status(queryImpossible).entity("Cash upgrade").build();
 		}
@@ -131,6 +132,7 @@ public class Webservice {
 	public Response putUnlock(@Context HttpServletRequest request, PallierType p) {
 		String username = request.getHeader("X-user");
 
+		System.out.println("Déblocage unlock");
 		if(	!services.updateProductunlock(username, p) ) {
 			return Response.status(queryImpossible).entity("Product unlock NON débloqué").build();
 		}
@@ -165,9 +167,10 @@ public class Webservice {
 	@Produces(MediaType.APPLICATION_XML)
 	public Response putAngelupgrade(@Context HttpServletRequest request, PallierType p) {
 		String username = request.getHeader("X-user");
-
+		
+		System.out.println("Acheter AngelUpgrade");
 		if(	!services.updateAngelupgrade(username, p) ) {
-			return Response.status(queryImpossible).entity("Angel upgrade").build();
+			return Response.status(200).build(); //entity("Angel upgrade").
 		}
 		
 		return Response.ok().build();

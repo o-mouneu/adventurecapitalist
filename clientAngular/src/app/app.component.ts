@@ -17,7 +17,8 @@ export class AppComponent {
   qtmultiIndex: number = 0;
   qtmulti: string = this.buyQuantities[this.qtmultiIndex];
 
-  _showUpgrades = false;
+  _showUpgrades: boolean = false;
+  _showAngelupgrades: boolean = false;
   _showManagers: boolean = false;
   badgeManagers: number = 0;
 
@@ -76,6 +77,14 @@ export class AppComponent {
     this._showUpgrades = value;
   }
 
+  public get showAngelupgrades(){
+    return this._showAngelupgrades;
+  }
+
+  public set showAngelupgrades(value:boolean){
+    this._showAngelupgrades = value;
+  }
+
   badgeThis(liste: Pallier[]){
     let value = false;
     for (var pallier of liste){
@@ -93,7 +102,9 @@ export class AppComponent {
   }
 
   onProductionDone(product: Product){
-    this.world.money += product.quantite * product.revenu;
+    this.world.money += product.quantite * product.revenu * ( 1 + (this.world.activeangels * this.world.angelbonus/100));
+    console.log( " Active angels : "+ this.world.activeangels + " Bonus : " + this.world.angelbonus);
+
   }
 
   onBuyDoneProduct(product: Product){
@@ -151,7 +162,7 @@ export class AppComponent {
   }
 
   /*
-    Buy upgrade
+    Acheter une cache upgrade upgrade
   */
   buyUpgrade(upgrade : Pallier){
     if(this.world.money >= upgrade.seuil){
@@ -161,6 +172,20 @@ export class AppComponent {
     this.applyUpgrade(upgrade);
     this.service.putUpgrade(upgrade);
   }
+
+
+  /*
+    Acheter une cache upgrade upgrade
+  */
+  buyAngelupgrade(upgrade : Pallier){
+    if(this.world.activeangels >= upgrade.seuil){
+      this.world.activeangels -= upgrade.seuil;
+      upgrade.unlocked = true;
+    }
+    this.applyUpgrade(upgrade);
+    this.service.putAngelupgrade(upgrade);
+  }
+
 
   popMessage(message : string) : void {
     this.snackBar.open(message, "OK", { duration : 5000 })
@@ -208,6 +233,10 @@ export class AppComponent {
   }
 
 
+  /*
+    Trouver un produit avec son id
+    @return {Product}
+  */
   findProductById(idCible : number) {
     for(let p=0; p<this.world.products.product.length; p++ ) {
       if( this.world.products.product[p].id == idCible )
@@ -219,7 +248,7 @@ export class AppComponent {
 
   applyUpgrade(pallier : Pallier) {
     if( pallier.typeratio == "anges") {
-
+      this.world.angelbonus += pallier.ratio;
     } else {
       let idCible = pallier.idcible;
       let bonusVitesse = 1;
@@ -250,6 +279,10 @@ export class AppComponent {
       }
     }
      
+  }
+
+  resetWorld() {
+    this.service.deleteWorld();
   }
 
 }

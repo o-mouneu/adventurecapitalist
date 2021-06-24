@@ -26,7 +26,7 @@
 					<logo>product-1-holy-water.png</logo>
 					<seuil>20</seuil>
 					<idcible>1</idcible>
-					<ratio>5</ratio>
+					<ratio>2</ratio>
 					<typeratio>gain</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
@@ -49,7 +49,7 @@
 					<logo>product-2-hostie.png</logo>
 					<seuil>20</seuil>
 					<idcible>2</idcible>
-					<ratio>5</ratio>
+					<ratio>1</ratio>
 					<typeratio>gain</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
@@ -72,7 +72,7 @@
 					<logo>product-3-holy-bible.png</logo>
 					<seuil>20</seuil>
 					<idcible>3</idcible>
-					<ratio>5</ratio>
+					<ratio>1</ratio>
 					<typeratio>vitesse</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
@@ -95,8 +95,8 @@
 					<logo>product-4-confessionnal.png</logo>
 					<seuil>20</seuil>
 					<idcible>4</idcible>
-					<ratio>5</ratio>
-					<typeratio>gain</typeratio>
+					<ratio>1</ratio>
+					<typeratio>vitesse</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
 			</palliers>
@@ -118,8 +118,8 @@
 					<logo>product-5-bucher.png</logo>
 					<seuil>20</seuil>
 					<idcible>5</idcible>
-					<ratio>5</ratio>
-					<typeratio>gain</typeratio>
+					<ratio>1</ratio>
+					<typeratio>vitesse</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
 			</palliers>
@@ -318,7 +318,7 @@
 			<unlocked>false</unlocked>
 		</pallier>
 		<pallier>
-			<name>Inquisition espagnole</name>
+      <name>Tomas de Torquemada</name>
 			<logo>manager-5-inquisition.png</logo>
 			<seuil>128000</seuil>
 			<idcible>5</idcible>
@@ -333,6 +333,15 @@
 			<idcible>6</idcible>
 			<ratio>1</ratio>
 			<typeratio>vitesse</typeratio>
+			<unlocked>false</unlocked>
+		</pallier>
+		<pallier>
+			<name>Jesus Script</name>
+			<logo>TODO</logo>
+			<seuil>1000000</seuil>
+			<idcible>0</idcible>
+			<ratio>10</ratio>
+			<typeratio>gain</typeratio>
 			<unlocked>false</unlocked>
 		</pallier>
 	</managers>

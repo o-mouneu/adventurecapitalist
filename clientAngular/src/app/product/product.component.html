@@ -1,5 +1,5 @@
 <div class="col-md-6">
-    <button (click)="startFabrication(false)" class="production" mat-raised-button color="primary">
+    <button (click)="startManualFabrication()" class="production" mat-raised-button color="primary">
         <figure>
             <img [src]="product.logo"/>
         </figure>
@@ -7,7 +7,7 @@
         <p>
             <span class="nombre">{{product.quantite}}</span> {{product.name}}
             <br/>pardonnent<br/>
-            <span [innerHTML]="product.quantite * product.revenu | bigvalue" class="nombre"></span> péchés
+            <span [innerHTML]="product.quantite * product.revenu * angelBonus| bigvalue" class="nombre"></span> péchés
         </p>    
     </button>
     <div *ngIf="isProductBuyable(); then enabledButton else disabledButton"></div>
