@@ -107,6 +107,29 @@ export class AppComponent {
 
   onBuyDoneProduct(product: Product){
     this.service.putProduct(product);
+
+    // À l'achat du produit, on vérifie la quantité de celui-ci débloque un bonus Unlock
+    for( let unlock of product.palliers.pallier ){
+      if( !unlock.unlocked && product.quantite >= unlock.seuil) {
+        this.applyUpgrade(unlock);        
+      }
+    }
+
+    // À l'achat du produit, on vérifie si un allUnlock peut être débloqué
+    for( let allUnlock of this.world.allunlocks.pallier ){
+      if( !allUnlock.unlocked ){
+        let nbrPSeuilOK = 0;
+        for( let product of this.world.products.product ){
+          if( product.quantite >= allUnlock.seuil ){
+            nbrPSeuilOK ++;
+          }
+        }
+        if( nbrPSeuilOK == this.world.products.product.length ){
+          this.applyUpgrade(allUnlock);
+        }
+      }
+    }
+
   }
 
   onBuyDoneCost(costOfBuy: number){
