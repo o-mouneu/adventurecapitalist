@@ -72,6 +72,16 @@ public class Services {
 		}
 	}
 	
+	boolean deleteFile( String username ) {
+		File fichierJoueur = new File(worldPath + username + "-world.xml");
+		
+		if( !fichierJoueur.delete() ) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 	boolean doesPlayerExists( String username ) {
 		File fichierJoueur = new File(worldPath + username + "-world.xml");
 		
@@ -81,14 +91,6 @@ public class Services {
 		return true;
 	}
 	
-	boolean deleteFile( String username ) {
-		File fichierJoueur = new File(worldPath + username + "-world.xml");
-		
-		if( !fichierJoueur.delete() ) {
-			return false;
-		}
-		return true;
-	}
 	
 	
 	
@@ -105,7 +107,14 @@ public class Services {
 		return world;
 	}
 	
-
+	/*
+	 * Achat d'un produit
+	 * 
+	 * Verifie si le produit peut être acheté
+	 * Applique le bonus au produit
+	 * 
+	 * @return {Boolean} succès
+	 */
 	public Boolean updateProduct(String  username, ProductType newProduct) {
 		World world = getWorld(username);
 		
@@ -126,9 +135,8 @@ public class Services {
 			double croissance = product.getCroissance(); 
 			double coutProduitBase = product.getCout();
 
-			//  S = U0 * ( (1-q^n+1) / (1-q))        N+1 = qtChange  car 3 produits = u0+u1+u2 
+			//  S = u0 * ( (1-q^n+1) / (1-q))       qtChange = N+1  car u0 compte 
 			double coutTotal = coutProduitBase * (( 1 - Math.pow(croissance, qtchange)) / (1 - croissance));
-			//coutTotal -= coutBase * (( 1 - Math.pow(croissance, productQuantity)) / (1 - croissance));
 			
 			System.out.println("\tCOUT :  u0 " + coutProduitBase + " un (n=" + qtchange + ") => TOTAL : " + coutTotal );
 			
@@ -160,7 +168,14 @@ public class Services {
 		return true;
 	}
 	
-
+	/*
+	 * Achat d'un manager
+	 * 
+	 * Verifie si le manager peut être acheté
+	 * Applique le bonus au produit
+	 * 
+	 * @return {Boolean} succès
+	 */
 	public Boolean updateManager(String username, PallierType newManager) {
 		
 
@@ -197,7 +212,14 @@ public class Services {
 		return true;
 	}
 	
-
+	/*
+	 * Achat d'un cash upgrade
+	 * 
+	 * Verifie si l'upgrade peut etre achetée
+	 * Applique le bonus au produit
+	 * 
+	 * @return {Boolean} succès
+	 */
 	public Boolean updateCashupgrade(String username, PallierType cashupgrade) {
 		
 		World world = getWorld(username);
@@ -227,6 +249,14 @@ public class Services {
 		return true;
 	}
 	
+	/*
+	 * Achat d'un angel upgrade
+	 * 
+	 * Verifie si l'upgrade peut etre achetée
+	 * Applique le bonus au produit
+	 * 
+	 * @return {Boolean} succès
+	 */
 	public Boolean updateAngelupgrade(String username, PallierType angelupgrade) {
 		
 		World world = getWorld(username);
@@ -251,6 +281,15 @@ public class Services {
 		return true;
 	}
 	
+	
+	/*
+	 * Déblocage d'un unlock global
+	 * 
+	 * Verifie si l'unlock peut etre débloqué
+	 * Applique le bonus au produit
+	 * 
+	 * @return {Boolean} succès
+	 */
 	public Boolean updateGlobalunlock(String username, PallierType unlock) {
 		
 		World world = getWorld(username);
@@ -283,6 +322,14 @@ public class Services {
 		return false;
 	}
 	
+	/*
+	 * Déblocage d'un unlock propre à un produit
+	 * 
+	 * Verifie si l'unlock peut etre débloqué
+	 * Applique le bonus au produit
+	 * 
+	 * @return {Boolean} succès
+	 */
 	public Boolean updateProductunlock(String username, PallierType unlock) {
 		
 		World world = getWorld(username);
@@ -299,7 +346,7 @@ public class Services {
 		for(int p=0; p<productUnlocks.size(); p++) {
 			if( unlock.getName().equals(productUnlocks.get(p).getName()) ) {
 				
-				// Verifier si quantite de produti dépasse seuil
+				// Verifier si quantite de produit dépasse seuil
 				if( productUnlocks.get(p).getSeuil() >= unlock.getSeuil() ) {
 					productUnlocks.get(p).setUnlocked(true);
 					// Appliquer le bonus
@@ -313,7 +360,9 @@ public class Services {
 		return false;
 	}
 	
-	
+	/*
+	 * Applique bonus des upgrades, unlocks et managers	
+	 */
 	public void applyBonus(World world, PallierType pallier) {
 		
 		int bonusVitesse = 1;
@@ -395,8 +444,10 @@ public class Services {
 	
 	
 			
-			
-	public int updateScore(World world) {
+	/*
+	 * Calcul argent gagné pendant la durée écoulée
+	 */
+	public void updateScore(World world) {
 		
 		List<ProductType> productList = world.getProducts().getProduct();
 		
@@ -406,9 +457,9 @@ public class Services {
 			PallierType currentManager = productList.get(p).getActiveManager();
 					
 			int nbCyclesProduction = updateProductTimeleft(world, productList.get(p));
-			double bonusAnges =  1 + ( world.getActiveangels() * world.getAngelbonus()/100 );
+			double bonusAnges =  world.getActiveangels() * world.getAngelbonus()/100;
 			
-			double benefProduit = nbCyclesProduction * productList.get(p).getRevenu() * productList.get(p).getQuantite() * bonusAnges;
+			double benefProduit = nbCyclesProduction * productList.get(p).getRevenu() * productList.get(p).getQuantite() * (1+bonusAnges);
 			nouveauxBenefices += benefProduit;
 			
 			System.out.println( "\tP  " + productList.get(p).getName() + " " + productList.get(p).getQuantite() + " (cycles: " + nbCyclesProduction + " = " + benefProduit + "$ )\tTL= " + productList.get(p).getTimeleft());
@@ -417,9 +468,7 @@ public class Services {
 		System.out.println("Argent = " + world.getMoney() + " + " + nouveauxBenefices + "$");
 		world.setMoney(world.getMoney() + nouveauxBenefices);
 		
-		
-		return 0;
-		
+			
 	}
 	
 	/*
@@ -476,6 +525,11 @@ public class Services {
 	}
 	
 	
+	/*
+	 * Reset du monde
+	 * Calcul du nombre de nouveaux anges actifs
+	 * 
+	 */
 	public boolean resetWorld(String username) {
 		World world = getWorld(username);
 		
