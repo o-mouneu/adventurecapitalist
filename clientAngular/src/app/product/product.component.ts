@@ -21,34 +21,29 @@ export class ProductComponent implements OnInit {
   // placeholder value
   logo = this.img+'product-placeholder.png';
 
-  _product: Product;
+  product: Product = new Product();
   _qtmulti: string;
   _buyQuantities: Array<string>;
   _worldMoney: number;
   // _quantityForCostOfBuy : [factor: number, cost: number]
   _quantityForCostOfBuy: Array<number>;
 
-  //_managerUnlocked: boolean = false;
+  _managerUnlocked: boolean = false;
   _onProduction: boolean = false;
 
   constructor() {
   }
   
   ngOnInit(): void {
-    let prod = new Product();
-    this.product = prod;
-    //this.product.managerUnlocked = false;
     setInterval(() => { this.calcScore(); }, 30);
     this.quantityForCostOfBuy();
   }
 
-  get product(){
-    return this._product;
-  }
-
   @Input()
-  set product(value: Product) {
-    this._product = value;
+  set prod(value: Product) {
+    console.log("Produit : ");
+    console.log(value);
+    this.product = value;
   }
 
   @Input()
@@ -82,13 +77,13 @@ export class ProductComponent implements OnInit {
     return this._worldMoney;
   }
 
-  /*@Input()
+  @Input()
   set managerUnlocked(value: boolean){
     this._managerUnlocked = value;
     if (this._managerUnlocked == true){
       this.startFabrication(true);
     }
-  }*/
+  }
 
   @Output()
   startManualProduction: EventEmitter<Product> = new EventEmitter<Product>();

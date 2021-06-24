@@ -28,7 +28,7 @@
       <ul>
         <li><a href="#" mat-raised-button color="accent">Unlocks</a></li>
         <li><a href="#" mat-raised-button color="accent">Upgrades</a></li>
-        <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent">Managers</a></li>
+        <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent" [matBadge]="badgeThis() ? '1' : '0'" [matBadgeHidden]="!badgeThis()">Managers</a></li>
         <li><a href="#" mat-raised-button color="accent">Investors</a></li>
         <li>
           <!--<iframe
@@ -43,11 +43,12 @@
     </nav>
   </aside>
   <section class="product">
-    <app-product *ngFor="let productID of [0,1,2,3,4,5]"
-      [product]="world.products.product[productID]"
-      [qtmulti]="qtmulti"
+    <app-product *ngFor="let product of world.products.product"
+      [prod]="product"
       [buyQuantities]="buyQuantities"
+      [qtmulti]="qtmulti"
       [worldMoney]="world.money"
+      [managerUnlocked]="product.managerUnlocked"
       (startManualProduction)="onManualProductionStarted($event)"
       (notifyProduction)="onProductionDone($event)"
       (notifyBuyProduct)="onBuyDoneProduct($event)"

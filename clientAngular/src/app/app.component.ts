@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RestserviceService } from './restservice.service';
 import { World, Pallier, Product } from './world';
 
@@ -19,15 +20,16 @@ export class AppComponent {
   world: World = new World();
   server: string;
 
-  buyQuantities = ["x 1", "x 10", "x 100", "Max"];
-  qtmultiIndex = 0;
-  qtmulti = this.buyQuantities[this.qtmultiIndex];
+  buyQuantities: Array<string> = ["x 1", "x 10", "x 100", "Max"];
+  qtmultiIndex: number = 0;
+  qtmulti: string = this.buyQuantities[this.qtmultiIndex];
 
-  _showManagers = false;
+  _showManagers: boolean = false;
+  badgeManagers: number = 0;
 
   username: any;
 
-  constructor(private service: RestserviceService) {
+  constructor(private service: RestserviceService, private snackBar: MatSnackBar) {
 
     this.username = localStorage.getItem("username");
     console.log("username : "+this.username);
@@ -63,6 +65,10 @@ export class AppComponent {
     this._showManagers = value;
   }
 
+  badgeThis(){
+    return true;
+  }
+
   onManualProductionStarted(product: Product){
     this.service.putProduct(product);
     console.log("onManualProductionStarted sent to server:");
@@ -94,7 +100,13 @@ export class AppComponent {
       this.world.money -= manager.seuil;
       manager.unlocked = true;
       this.world.products.product[manager.idcible-1].managerUnlocked = true;
+      this.service.hireManager(manager);
+      this.popMessage(manager.name+ " hired !");
     }
+  }
+
+  popMessage(message : string) : void {
+    this.snackBar.open(message, "OK", { duration : 5000 })
   }
 
   generateRandomUsername(){
