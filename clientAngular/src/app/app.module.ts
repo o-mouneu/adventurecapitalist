@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     BigvaluePipe
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -31,7 +35,9 @@ import { FormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -64,4 +64,12 @@ export class RestserviceService {
     .toPromise().catch(this.handleError);
   }
 
+  hireManager(manager: Pallier){
+    console.log("hireManager triggered avec X-user : "+this.user);
+    console.log(manager);
+    this.http.put<Pallier>(this._server + "adventureisis/generic/product", manager,
+    { headers: this.setHeaders(this.user)})
+    .toPromise().catch(this.handleError);
+  }
+
 }
