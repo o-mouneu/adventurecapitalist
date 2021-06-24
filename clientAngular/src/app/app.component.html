@@ -1,15 +1,14 @@
 <header>
   <div id="title">
     <figure class="logo">
-      <!-- placeholder value-->
-      <!-- <img [attr.src]="world.logo" /> -->
-      <img [attr.src]="logo" />
+      <img [attr.src]="server+world.logo" />
     </figure>
+    <div class="holy-light"></div>
     <span id="worldname">{{world.name}}</span>
   </div>
   <div id="money">
     <!-- ajout de &nbsp; pour insérer un espace -->
-    <span><span [innerHTML]="world.money | bigvalue"></span>&nbsp;péchés pardonnés</span>
+    <span><span [innerHTML]="world.money | bigvalue" class="nombre"></span>&nbsp;péchés pardonnés</span>
   </div>
   <div id="quantite">
     <button (click)="switchBuyQuantity()" mat-raised-button color="primary">{{qtmulti}}</button>
@@ -32,13 +31,13 @@
         <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.managers.pallier)">Managers</a></li>
         <li><a (click)="resetWorld()" href="#" mat-raised-button color="accent">Ascend to heaven</a></li>
         <li>
-          <!--<iframe
+          <iframe
             src="https://www.youtube.com/embed/ygr5AHufBN4?autoplay=1&loop=1&playlist=ygr5AHufBN4"
             title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
-          </iframe>-->
+          </iframe>
         </li>
       </ul>
     </nav>
@@ -89,8 +88,6 @@
     <div *ngFor="let unlock of generateUnlockList()">
       <div *ngIf="!unlock.unlocked" class="managersLayout">
         <div class="logo"><img class="round" [attr.src]="server+unlock.logo"/></div>
-      </div>
-      <div>
         <div class="managername">{{ unlock.name }}</div>
         <div class="managercible" [innerHTML]="(unlock.idcible > 0) ? world.products.product[unlock.idcible-1].name : 'All'"></div>
         <div class="managercost">{{ unlock.seuil }}</div>

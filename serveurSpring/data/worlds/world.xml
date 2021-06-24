@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <world>
 	<name>Vatican Capitalist</name>
-	<logo>TODO</logo>
+	<logo>world-logo-armoirie-vatican.svg</logo>
 	<money>0</money>
 	<score>0</score>
 	<totalangels>0</totalangels>
@@ -12,7 +12,7 @@
 		<product>
 			<id>1</id>
 			<name>Eau bénite</name>
-			<logo>TODO</logo>
+			<logo>product-1-holy-water.png</logo>
 			<cout>1</cout>
 			<croissance>1.01</croissance>
 			<revenu>1</revenu>
@@ -22,9 +22,9 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Veolia Sacra</name>
-					<logo>TODO</logo>
-					<seuil>500</seuil>
+					<name>Cul-glisse dans l'église</name>
+					<logo>product-1-holy-water.png</logo>
+					<seuil>20</seuil>
 					<idcible>1</idcible>
 					<ratio>2</ratio>
 					<typeratio>gain</typeratio>
@@ -35,7 +35,7 @@
 		<product>
 			<id>2</id>
 			<name>Hostie</name>
-			<logo>TODO</logo>
+			<logo>product-2-hostie.png</logo>
 			<cout>1</cout>
 			<croissance>1.05</croissance>
 			<revenu>4</revenu>
@@ -45,9 +45,9 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Jules l'enfant de cœur</name>
-					<logo>TODO</logo>
-					<seuil>2000</seuil>
+					<name>Distribution de pain</name>
+					<logo>product-2-hostie.png</logo>
+					<seuil>20</seuil>
 					<idcible>2</idcible>
 					<ratio>1</ratio>
 					<typeratio>gain</typeratio>
@@ -58,7 +58,7 @@
 		<product>
 			<id>3</id>
 			<name>Bible</name>
-			<logo>TODO</logo>
+			<logo>product-3-holy-bible.png</logo>
 			<cout>20</cout>
 			<croissance>1.10</croissance>
 			<revenu>10</revenu>
@@ -68,9 +68,9 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Johannes Gutenberg</name>
-					<logo>TODO</logo>
-					<seuil>8000</seuil>
+					<name>Prosélitisme</name>
+					<logo>product-3-holy-bible.png</logo>
+					<seuil>20</seuil>
 					<idcible>3</idcible>
 					<ratio>1</ratio>
 					<typeratio>vitesse</typeratio>
@@ -81,7 +81,7 @@
 		<product>
 			<id>4</id>
 			<name>Confessionnal</name>
-			<logo>TODO</logo>
+			<logo>product-4-confessionnal.png</logo>
 			<cout>300</cout>
 			<croissance>1.19</croissance>
 			<revenu>100</revenu>
@@ -91,9 +91,9 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Abbé Pierre</name>
-					<logo>TODO</logo>
-					<seuil>32000</seuil>
+					<name>Absolution</name>
+					<logo>product-4-confessionnal.png</logo>
+					<seuil>20</seuil>
 					<idcible>4</idcible>
 					<ratio>1</ratio>
 					<typeratio>vitesse</typeratio>
@@ -104,7 +104,7 @@
 		<product>
 			<id>5</id>
 			<name>Bûcher</name>
-			<logo>TODO</logo>
+			<logo>product-5-bucher.png</logo>
 			<cout>10000</cout>
 			<croissance>1.05</croissance>
 			<revenu>2500</revenu>
@@ -114,9 +114,9 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Inquisition espagnole</name>
-					<logo>TODO</logo>
-					<seuil>128000</seuil>
+					<name>Incendies</name>
+					<logo>product-5-bucher.png</logo>
+					<seuil>20</seuil>
 					<idcible>5</idcible>
 					<ratio>1</ratio>
 					<typeratio>vitesse</typeratio>
@@ -127,21 +127,21 @@
 		<product>
 			<id>6</id>
 			<name>Cathédrale</name>
-			<logo>TODO</logo>
+			<logo>product-6-cathedrale.png</logo>
 			<cout>10000000</cout>
 			<croissance>1.05</croissance>
 			<revenu>300000</revenu>
-			<vitesse>300</vitesse>
+			<vitesse>30000</vitesse>
 			<quantite>0</quantite>
 			<timeleft>0</timeleft>
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Pape Innocent IX</name>
-					<logo>TODO</logo>
-					<seuil>512000</seuil>
-					<idcible>2</idcible>
-					<ratio>1</ratio>
+					<name>Patrimoine protégé par l'UNESCO</name>
+					<logo>product-6-cathedrale.png</logo>
+					<seuil>20</seuil>
+					<idcible>6</idcible>
+					<ratio>5</ratio>
 					<typeratio>vitesse</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
@@ -150,11 +150,11 @@
 	</products>
 	<allunlocks>
 		<pallier>
-			<name>TODO</name>
-			<logo>TODO</logo>
-			<seuil>TODO</seuil>
-			<idcible>TODO</idcible>
-			<ratio>TODO</ratio>
+			<name>Eucharistie</name>
+			<logo>manager-7-jesus-christ.png</logo>
+			<seuil>20</seuil>
+			<idcible>0</idcible>
+			<ratio>5</ratio>
 			<typeratio>vitesse</typeratio>
 			<unlocked>false</unlocked>
 		</pallier>
@@ -162,7 +162,7 @@
 	<upgrades>
 		<pallier>
 			<name>Tireuse à eau</name>
-			<logo>TODO</logo>
+			<logo>product-1-holy-water.png</logo>
 			<seuil>200</seuil>
 			<idcible>1</idcible>
 			<ratio>3</ratio>
@@ -170,9 +170,9 @@
 			<unlocked>false</unlocked>
 		</pallier>
 		<pallier>
-			<name>Machine à Hosties</name>
-			<logo>TODO</logo>
-			<seuil>50O</seuil>
+			<name>Machine à hosties</name>
+			<logo>product-2-hostie.png</logo>
+			<seuil>500</seuil>
 			<idcible>2</idcible>
 			<ratio>2</ratio>
 			<typeratio>gain</typeratio>
@@ -180,7 +180,7 @@
 		</pallier>
 		<pallier>
 			<name>Usine à papier</name>
-			<logo>TODO</logo>
+			<logo>product-3-holy-bible.png</logo>
 			<seuil>700</seuil>
 			<idcible>3</idcible>
 			<ratio>5</ratio>
@@ -189,7 +189,7 @@
 		</pallier>
 		<pallier>
 			<name>Artisan</name>
-			<logo>TODO</logo>
+			<logo>product-4-confessionnal.png</logo>
 			<seuil>300</seuil>
 			<idcible>4</idcible>
 			<ratio>2</ratio>
@@ -198,8 +198,8 @@
 		</pallier>
 		<pallier>
 			<name>Lance-flamme</name>
-			<logo>TODO</logo>
-			<seuil>TODO</seuil>
+			<logo>product-5-bucher.png</logo>
+			<seuil>600</seuil>
 			<idcible>5</idcible>
 			<ratio>10</ratio>
 			<typeratio>vitesse</typeratio>
@@ -207,7 +207,7 @@
 		</pallier>
 		<pallier>
 			<name>Grue</name>
-			<logo>TODO</logo>
+			<logo>product-6-cathedrale.png</logo>
 			<seuil>250</seuil>
 			<idcible>6</idcible>
 			<ratio>6</ratio>
@@ -216,7 +216,7 @@
 		</pallier>
 		<pallier>
 			<name>Carrière (pierre)</name>
-			<logo>TODO</logo>
+			<logo>product-6-cathedrale.png</logo>
 			<seuil>1000</seuil>
 			<idcible>6</idcible>
 			<ratio>3</ratio>
@@ -227,7 +227,7 @@
 	<angelupgrades>
 		<pallier>
 			<name>Excommunion du pape</name>
-			<logo>TODO</logo>
+			<logo>angel.png</logo>
 			<seuil>10000</seuil>
 			<idcible>0</idcible>
 			<ratio>2</ratio>
@@ -236,7 +236,7 @@
 		</pallier>
 		<pallier>
 			<name>Baptème des anges</name>
-			<logo>TODO</logo>
+			<logo>angel.png</logo>
 			<seuil>10000</seuil>
 			<idcible>0</idcible>
 			<ratio>2</ratio>
@@ -245,7 +245,7 @@
 		</pallier>
 		<pallier>
 			<name>Purification</name>
-			<logo>TODO</logo>
+			<logo>angel.png</logo>
 			<seuil>10000</seuil>
 			<idcible>0</idcible>
 			<ratio>2</ratio>
@@ -254,7 +254,7 @@
 		</pallier>
 		<pallier>
 			<name>Montée au ciel</name>
-			<logo>TODO</logo>
+			<logo>angel.png</logo>
 			<seuil>100000</seuil>
 			<idcible>0</idcible>
 			<ratio>2</ratio>
@@ -263,7 +263,7 @@
 		</pallier>
 		<pallier>
 			<name>Sacrifice</name>
-			<logo>TODO</logo>
+			<logo>angel.png</logo>
 			<seuil>100000</seuil>
 			<idcible>0</idcible>
 			<ratio>2</ratio>
@@ -272,7 +272,7 @@
 		</pallier>
 		<pallier>
 			<name>Résurrection</name>
-			<logo>TODO</logo>
+			<logo>angel.png</logo>
 			<seuil>10000000</seuil>
 			<idcible>0</idcible>
 			<ratio>100</ratio>
@@ -283,7 +283,7 @@
 	<managers>
 		<pallier>
 			<name>Veolia Sacra</name>
-			<logo>TODO</logo>
+			<logo>manager-1-veolia-sacra.png</logo>
 			<seuil>500</seuil>
 			<idcible>1</idcible>
 			<ratio>1</ratio>
@@ -291,8 +291,8 @@
 			<unlocked>false</unlocked>
 		</pallier>
 		<pallier>
-			<name>Jules l'enfant de cœur</name>
-			<logo>TODO</logo>
+			<name>Jules l'enfant de chœur</name>
+			<logo>manager-2-enfant-de-choeur.png</logo>
 			<seuil>2000</seuil>
 			<idcible>2</idcible>
 			<ratio>1</ratio>
@@ -301,7 +301,7 @@
 		</pallier>
 		<pallier>
 			<name>Johannes Gutenberg</name>
-			<logo>TODO</logo>
+			<logo>manager-3-johannes-gutenberg.png</logo>
 			<seuil>8000</seuil>
 			<idcible>3</idcible>
 			<ratio>1</ratio>
@@ -309,8 +309,8 @@
 			<unlocked>false</unlocked>
 		</pallier>
 		<pallier>
-			<name>Abbé Pierre</name>
-			<logo>TODO</logo>
+			<name>Abbé Langélusse</name>
+			<logo>manager-4-abbe-langelusse.png</logo>
 			<seuil>32000</seuil>
 			<idcible>4</idcible>
 			<ratio>1</ratio>
@@ -318,8 +318,8 @@
 			<unlocked>false</unlocked>
 		</pallier>
 		<pallier>
-			<name>Tomas de Torquemada</name>
-			<logo>TODO</logo>
+      <name>Tomas de Torquemada</name>
+			<logo>manager-5-inquisition.png</logo>
 			<seuil>128000</seuil>
 			<idcible>5</idcible>
 			<ratio>1</ratio>
@@ -327,8 +327,8 @@
 			<unlocked>false</unlocked>
 		</pallier>
 		<pallier>
-			<name>Pape Innocent IX</name>
-			<logo>TODO</logo>
+			<name>Pape Innocent XI</name>
+			<logo>manager-6-pape.png</logo>
 			<seuil>512000</seuil>
 			<idcible>6</idcible>
 			<ratio>1</ratio>

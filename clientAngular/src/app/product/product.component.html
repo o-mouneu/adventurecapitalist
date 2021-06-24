@@ -1,7 +1,7 @@
 <div class="col-md-6">
     <button (click)="startManualFabrication()" class="production" mat-raised-button color="primary">
         <figure>
-            <img src="../assets/img/product-placeholder.png"/>
+            <img [src]="product.logo"/>
         </figure>
         <mat-progress-spinner class="example-margin" mode="determinate" [value]="progressbarvalue * 1.4" color="accent"></mat-progress-spinner>
         <p>
@@ -10,10 +10,7 @@
             <span [innerHTML]="product.quantite * product.revenu * angelBonus| bigvalue" class="nombre"></span> péchés
         </p>    
     </button>
-    <button (click)="buyProduct()" class="buy" mat-raised-button [ngClass]="isProductBuyable() ? 'mat-accent' : 'mat-button-disabled'">
-        <span>Acheter {{quantityForCostOfBuy()[0]}} {{product.name}} pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
-    </button>
-    <!--<div *ngIf="isProductBuyable(); then enabledButton else disabledButton"></div>
+    <div *ngIf="isProductBuyable(); then enabledButton else disabledButton"></div>
     <ng-template #enabledButton>
         <button (click)="buyProduct()" class="buy" mat-raised-button color="accent">
             <span>Acheter {{quantityForCostOfBuy()[0]}} {{product.name}} pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
@@ -23,10 +20,5 @@
         <button class="buy" mat-raised-button disabled>
             <span>Acheter {{quantityForCostOfBuy()[0]}} {{product.name}} pour <span [innerHTML]="quantityForCostOfBuy()[1] | bigvalue"></span></span>
         </button>
-    </ng-template>-->
+    </ng-template>
 </div>
-<!--
-<div *ngIf="condition; then thenBlock else elseBlock"></div>
-<ng-template #thenBlock>Content to render when condition is true.</ng-template>
-<ng-template #elseBlock>Content to render when condition is false.</ng-template>
--->

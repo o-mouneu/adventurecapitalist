@@ -9,13 +9,6 @@ import { World, Pallier, Product } from './world';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  
-  // placeholder value
-  title = 'Vatican Capitalist';
-  // placeholder value
-  img = 'assets/img/';
-  // placeholder value
-  _logo = this.img+'armoirie-vatican.svg';
 
   world: World = new World();
   server: string;
@@ -55,10 +48,8 @@ export class AppComponent {
       }
     );
 
-  }
+    this.server = service._server;
 
-  get logo(){
-    return this._logo;
   }
 
   public get showManagers(){
@@ -118,6 +109,34 @@ export class AppComponent {
 
   onBuyDoneProduct(product: Product){
     this.service.putProduct(product);
+
+    // À l'achat du produit, on vérifie la quantité de celui-ci débloque un bonus Unlock
+    for( let unlock of product.palliers.pallier ){
+      if( !unlock.unlocked && product.quantite >= unlock.seuil) {
+        console.log("Unlock "+unlock.name+" for product "+product.name+" unlocked!");
+        this.applyUpgrade(unlock);
+        unlock.unlocked = true;     
+      }
+    }
+
+    // À l'achat du produit, on vérifie si un allUnlock peut être débloqué
+    for( let allUnlock of this.world.allunlocks.pallier ){
+      if( !allUnlock.unlocked ){
+        let nbrPSeuilOK = 0;
+        for( let prod of this.world.products.product ){
+          if( prod.quantite >= allUnlock.seuil ){
+            nbrPSeuilOK ++;
+            console.log("nbrPSeuilOK = "+nbrPSeuilOK);
+          }
+        }
+        if( nbrPSeuilOK == this.world.products.product.length ){
+          console.log("AllUnlock "+allUnlock.name+" for all products unlocked!");
+          this.applyUpgrade(allUnlock);
+          allUnlock.unlocked = true;
+        }
+      }
+    }
+
   }
 
   onBuyDoneCost(costOfBuy: number){
