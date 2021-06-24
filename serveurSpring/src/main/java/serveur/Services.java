@@ -461,7 +461,7 @@ public class Services {
 			double benefProduit = nbCyclesProduction * productList.get(p).getRevenu() * productList.get(p).getQuantite() * (1+bonusAnges);
 			nouveauxBenefices += benefProduit;
 			
-			// System.out.println( "\tP  " + productList.get(p).getName() + " " + productList.get(p).getQuantite() + " (cycles: " + nbCyclesProduction + " = " + benefProduit + "$ )\tTL= " + productList.get(p).getTimeleft());
+			System.out.println( "\tP  " + productList.get(p).getName() + " " + productList.get(p).getQuantite() + " (cycles: " + nbCyclesProduction + " = " + benefProduit + "$ )\tTL= " + productList.get(p).getTimeleft());
 
 		}
 		System.out.println("Argent = " + world.getMoney() + " + " + nouveauxBenefices + "$");
@@ -540,7 +540,7 @@ public class Services {
 		double totalAngels = world.getTotalangels();
 		
 		double calculAnges = Math.floor( 150 * Math.sqrt( world.getMoney() / (Math.pow(10, 15)) ));
-		double newAngels = (calculAnges>totalAngels) ? calculAnges-totalAngels : 0;
+		double newAngels = Math.floor((calculAnges>totalAngels) ? calculAnges-totalAngels : 0);
 
 		System.out.println("Calcul anges - ActiveA =" + activeAngels + "  total : " + totalAngels + " newA = " + newAngels);
 		deleteFile(username);
