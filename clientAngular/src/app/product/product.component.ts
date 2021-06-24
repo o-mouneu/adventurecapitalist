@@ -10,8 +10,8 @@ import { Pallier, Product } from '../world';
 
 export class ProductComponent implements OnInit {
 
+  
   progressbarvalue = 0;
-  timeleft = 0;
   lastupdate = Date.now();
 
   // placeholder value because product is not defined
@@ -25,18 +25,24 @@ export class ProductComponent implements OnInit {
   _qtmulti: string;
   _buyQuantities: Array<string>;
   _worldMoney: number;
+  _angelBonus: number;
   // _quantityForCostOfBuy : [factor: number, cost: number]
   _quantityForCostOfBuy: Array<number>;
 
-  _managerUnlocked: boolean = false;
   _onProduction: boolean = false;
 
   constructor() {
   }
   
   ngOnInit(): void {
-    setInterval(() => { this.calcScore(); }, 30);
+    if( this.product.timeleft != 0 || this.product.managerUnlocked == true) {
+      this._onProduction = true;
+      console.log(this.product.name + " ON prod " + this.product.timeleft + " ms");
+    }
+
+    setInterval(() => { this.calcScore(); }, 50);
     this.quantityForCostOfBuy();
+    
   }
 
   @Input()
@@ -78,10 +84,20 @@ export class ProductComponent implements OnInit {
   }
 
   @Input()
+  set angelBonus(value: number){
+    this._angelBonus = value;
+  }
+
+  get angelBonus(){
+    return this._angelBonus;
+  }
+
+  @Input()
   set managerUnlocked(value: boolean){
-    this._managerUnlocked = value;
-    if (this._managerUnlocked == true){
-      this.startFabrication(true);
+    this.product.managerUnlocked = value;
+    if ( value == true ){
+      this._onProduction = true;
+      this.startManagedFabrication(0);
     }
   }
 
@@ -98,49 +114,73 @@ export class ProductComponent implements OnInit {
   notifyBuyCost: EventEmitter<number> = new EventEmitter<number>();
 
   calcScore(){
-    // mettre à jour Product timeleft
-    if ( this.product.timeleft !=0 ){
+
+    // Mettre à jour Product timeleft si produit en production
+    if ( this._onProduction ){
       this.product.timeleft = this.product.timeleft - (Date.now() - this.lastupdate);
       this.lastupdate = Date.now();
-    }
-    if (this.product.timeleft < 0){
-      this.product.timeleft = 0;
-      this.progressbarvalue = 0;
-      this._onProduction = false;
 
-      //Event
-      this.notifyProduction.emit(this.product);
-      console.log("notifyProduction sent to app.component");
+      // Si produit a terminé d'être produit
+      if (this.product.timeleft < 0){
+        
 
-      console.log("Coût de "+this._quantityForCostOfBuy[0]+" "+this.product.name+":");
-      console.log(this._quantityForCostOfBuy[1]);
-      console.log("Argent :");
-      console.log(this.worldMoney+this.product.revenu*this.product.quantite);
+        // Event calcul bénéfice
+        this.notifyProduction.emit(this.product);
+        console.log("notifyProduction sent to app.component");
 
-      //Demarrer nouvelle production
-      if( this.product.managerUnlocked ){
-        this.startFabrication(true);
+        //console.log("Coût de "+this._quantityForCostOfBuy[0]+" "+this.product.name+":");
+        //console.log(this._quantityForCostOfBuy[1]);
+        console.log("Argent :");
+        console.log(this.worldMoney+this.product.revenu*this.product.quantite);
+
+        // Si produit est managé
+        if( this.product.managerUnlocked ){
+          // Demarrer fabrication automatique
+          this.startManagedFabrication(this.product.timeleft);
+
+        } else {
+           // Demarrer fabrication manuelle
+          this.startManualFabrication();
+          this.product.timeleft = 0;
+          this.progressbarvalue = 0;
+          this._onProduction = false;
+          
+        }
+
+      } else {
+
+        // Produit en cours de production
+        if ( this.product.timeleft > 0 && !this.product.managerUnlocked ){
+          // Changer progress bar
+          this.progressbarvalue = ((this.product.vitesse - this.product.timeleft) / this.product.vitesse) * 100;
+        }
       }
 
     }
 
-    // Changer progress bar
-    if (this.product.timeleft > 0){
-      this.progressbarvalue = ((this.product.vitesse - this.product.timeleft) / this.product.vitesse) * 100;
-    }
+    
 
   }
 
-  startFabrication(auto: boolean){
+  startManualFabrication(){
+    // Si produit PAS en cours de production  &  Quantité > 0
     if( !this._onProduction && this.product.quantite > 0 ){
       this._onProduction = true;
-      if( !auto ){
-        this.startManualProduction.emit(this.product);
-        console.log("startManualProduction sent to app.component");
-      }
+     
+      // Notifier serveur debut production
+      this.startManualProduction.emit(this.product);
+      console.log("startManualProduction sent to app.component");
+
       this.product.timeleft = this.product.vitesse;
       this.lastupdate = Date.now();
     }
+  }
+
+  startManagedFabrication(diffTime: number){
+    // Si produit sans manageur              
+    // diffTime valeur négative => temps entre 2 actualisations pendant lequel produit a terminé d'etre produit
+    this.product.timeleft = this.product.vitesse + diffTime;
+    this.lastupdate = Date.now();
   }
 
   buyProduct(){

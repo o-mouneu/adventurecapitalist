@@ -77,8 +77,8 @@ export class RestserviceService {
   putAngelupgrade(pallier) {
     console.log("putAngelupgrade triggered avec X-user : "+this.user);
     console.log(pallier);
-    this.http.put<Product>(this._server + "adventureisis/generic/angelupgrade", pallier,
-    { headers: this.setHeaders(this.user)})
+    this.http.put<Pallier>(this._server + "adventureisis/generic/angelupgrade", pallier,
+    { headers: this.setHeaders(this.user)} )
     .toPromise().catch(this.handleError);
   }
   
@@ -86,7 +86,7 @@ export class RestserviceService {
   hireManager(manager: Pallier){
     console.log("hireManager triggered avec X-user : "+this.user);
     console.log(manager);
-    this.http.put<Pallier>(this._server + "adventureisis/generic/product", manager,
+    this.http.put<Pallier>(this._server + "adventureisis/generic/manager", manager,
     { headers: this.setHeaders(this.user)})
     .toPromise().catch(this.handleError);
   }

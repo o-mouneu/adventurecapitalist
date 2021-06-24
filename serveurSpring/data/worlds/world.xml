@@ -22,11 +22,11 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Cul-glisse dans l'église</name>
+					<name>Veolia Sacra</name>
 					<logo>TODO</logo>
-					<seuil>20</seuil>
+					<seuil>500</seuil>
 					<idcible>1</idcible>
-					<ratio>5</ratio>
+					<ratio>2</ratio>
 					<typeratio>gain</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
@@ -34,7 +34,7 @@
 		</product>
 		<product>
 			<id>2</id>
-			<name>Ostie</name>
+			<name>Hostie</name>
 			<logo>TODO</logo>
 			<cout>1</cout>
 			<croissance>1.05</croissance>
@@ -45,11 +45,11 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Distribution de pain</name>
+					<name>Jules l'enfant de cœur</name>
 					<logo>TODO</logo>
-					<seuil>20</seuil>
+					<seuil>2000</seuil>
 					<idcible>2</idcible>
-					<ratio>5</ratio>
+					<ratio>1</ratio>
 					<typeratio>gain</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
@@ -68,11 +68,11 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Prosélitisme</name>
+					<name>Johannes Gutenberg</name>
 					<logo>TODO</logo>
-					<seuil>20</seuil>
+					<seuil>8000</seuil>
 					<idcible>3</idcible>
-					<ratio>5</ratio>
+					<ratio>1</ratio>
 					<typeratio>vitesse</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
@@ -91,12 +91,12 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Absolution</name>
+					<name>Abbé Pierre</name>
 					<logo>TODO</logo>
-					<seuil>20</seuil>
+					<seuil>32000</seuil>
 					<idcible>4</idcible>
-					<ratio>5</ratio>
-					<typeratio>gain</typeratio>
+					<ratio>1</ratio>
+					<typeratio>vitesse</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
 			</palliers>
@@ -108,18 +108,18 @@
 			<cout>10000</cout>
 			<croissance>1.05</croissance>
 			<revenu>2500</revenu>
-			<vitesse>10</vitesse>
+			<vitesse>10000</vitesse>
 			<quantite>0</quantite>
 			<timeleft>0</timeleft>
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Incendies</name>
+					<name>Inquisition espagnole</name>
 					<logo>TODO</logo>
-					<seuil>20</seuil>
+					<seuil>128000</seuil>
 					<idcible>5</idcible>
-					<ratio>5</ratio>
-					<typeratio>gain</typeratio>
+					<ratio>1</ratio>
+					<typeratio>vitesse</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
 			</palliers>
@@ -137,11 +137,11 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Patrimoine protégé par l'UNESCO</name>
+					<name>Pape Innocent IX</name>
 					<logo>TODO</logo>
-					<seuil>20</seuil>
-					<idcible>6</idcible>
-					<ratio>5</ratio>
+					<seuil>512000</seuil>
+					<idcible>2</idcible>
+					<ratio>1</ratio>
 					<typeratio>vitesse</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
@@ -150,11 +150,11 @@
 	</products>
 	<allunlocks>
 		<pallier>
-			<name>Eucharistie</name>
+			<name>TODO</name>
 			<logo>TODO</logo>
-			<seuil>20</seuil>
-			<idcible>0</idcible>
-			<ratio>5</ratio>
+			<seuil>TODO</seuil>
+			<idcible>TODO</idcible>
+			<ratio>TODO</ratio>
 			<typeratio>vitesse</typeratio>
 			<unlocked>false</unlocked>
 		</pallier>
@@ -170,7 +170,7 @@
 			<unlocked>false</unlocked>
 		</pallier>
 		<pallier>
-			<name>Machine à osties</name>
+			<name>Machine à Hosties</name>
 			<logo>TODO</logo>
 			<seuil>50O</seuil>
 			<idcible>2</idcible>
@@ -318,7 +318,7 @@
 			<unlocked>false</unlocked>
 		</pallier>
 		<pallier>
-			<name>Inquisition espagnole</name>
+			<name>Tomas de Torquemada</name>
 			<logo>TODO</logo>
 			<seuil>128000</seuil>
 			<idcible>5</idcible>
@@ -333,6 +333,15 @@
 			<idcible>6</idcible>
 			<ratio>1</ratio>
 			<typeratio>vitesse</typeratio>
+			<unlocked>false</unlocked>
+		</pallier>
+		<pallier>
+			<name>Jesus Script</name>
+			<logo>TODO</logo>
+			<seuil>1000000</seuil>
+			<idcible>0</idcible>
+			<ratio>10</ratio>
+			<typeratio>gain</typeratio>
 			<unlocked>false</unlocked>
 		</pallier>
 	</managers>

@@ -16,6 +16,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.springframework.util.NumberUtils;
+
 
 /**
  * <p>Classe Java pour anonymous complex type.
@@ -151,6 +153,7 @@ public class World {
     public void setMoney(double value) {
     	System.out.println("Set money " + value);
         this.money = value;
+        
     }
 
     /**

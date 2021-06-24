@@ -112,6 +112,8 @@ export class AppComponent {
 
   onProductionDone(product: Product){
     this.world.money += product.quantite * product.revenu * ( 1 + (this.world.activeangels * this.world.angelbonus/100));
+    console.log( " Active angels : "+ this.world.activeangels + " Bonus : " + this.world.angelbonus);
+
   }
 
   onBuyDoneProduct(product: Product){

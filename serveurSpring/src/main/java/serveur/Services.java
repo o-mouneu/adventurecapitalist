@@ -454,15 +454,14 @@ public class Services {
 		double nouveauxBenefices = 0;
 		for(int p=0; p<productList.size(); p++) {
 			
-			PallierType currentManager = productList.get(p).getActiveManager();
-					
-			int nbCyclesProduction = updateProductTimeleft(world, productList.get(p));
-			double bonusAnges =  world.getActiveangels() * world.getAngelbonus()/100;
 			
+			int nbCyclesProduction = updateProductTimeleft(world, productList.get(p));
+			
+			double bonusAnges =  world.getActiveangels() * world.getAngelbonus()/100;
 			double benefProduit = nbCyclesProduction * productList.get(p).getRevenu() * productList.get(p).getQuantite() * (1+bonusAnges);
 			nouveauxBenefices += benefProduit;
 			
-			System.out.println( "\tP  " + productList.get(p).getName() + " " + productList.get(p).getQuantite() + " (cycles: " + nbCyclesProduction + " = " + benefProduit + "$ )\tTL= " + productList.get(p).getTimeleft());
+			// System.out.println( "\tP  " + productList.get(p).getName() + " " + productList.get(p).getQuantite() + " (cycles: " + nbCyclesProduction + " = " + benefProduit + "$ )\tTL= " + productList.get(p).getTimeleft());
 
 		}
 		System.out.println("Argent = " + world.getMoney() + " + " + nouveauxBenefices + "$");
@@ -539,22 +538,28 @@ public class Services {
 		
 		double activeAngels = world.getActiveangels();
 		double totalAngels = world.getTotalangels();
-		double newAngels = (150 * Math.sqrt(world.getMoney()/(Math.pow(10, 15)) - totalAngels) );
 		
+		double calculAnges = Math.floor( 150 * Math.sqrt( world.getMoney() / (Math.pow(10, 15)) ));
+		double newAngels = (calculAnges>totalAngels) ? calculAnges-totalAngels : 0;
+
+		System.out.println("Calcul anges - ActiveA =" + activeAngels + "  total : " + totalAngels + " newA = " + newAngels);
 		deleteFile(username);
-		
+	
 		World newWorld = getWorld(username);
-		world.setActiveangels( activeAngels + newAngels );
-		world.setTotalangels( totalAngels + newAngels );
+		newWorld.setActiveangels( activeAngels + newAngels );
+		newWorld.setTotalangels( totalAngels + newAngels );
 		System.out.println("[RESET]  " + username + "\tTT Angels " + newWorld.getTotalangels() + "  -  ACTIVE Angels " + newWorld.getActiveangels());
 		
+	
+		
+		saveWorldToXml(username, newWorld);
 		return true;
 	}
 	
 	
-	public void setMoney(String username, int qte) {
+	public void setMoney(String username, double money) {
 		World world = getWorld(username);
-		world.setMoney(qte);
+		world.setMoney(money);
 		saveWorldToXml(username, world);
 	}
 	

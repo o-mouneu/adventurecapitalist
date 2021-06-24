@@ -30,7 +30,7 @@
         <li><a (click)="showUpgrades = true" href="#" mat-raised-button color="accent">Cash upgrades</a></li>
         <li><a (click)="showAngelupgrades = true" href="#" mat-raised-button color="accent">Angel upgrades</a></li>
         <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.managers.pallier)">Managers</a></li>
-        <li><a href="#" mat-raised-button color="accent">Investors</a></li>
+        <li><a (click)="resetWorld()" href="#" mat-raised-button color="accent">Ascend to heaven</a></li>
         <li>
           <!--<iframe
             src="https://www.youtube.com/embed/ygr5AHufBN4?autoplay=1&loop=1&playlist=ygr5AHufBN4"
@@ -49,6 +49,7 @@
       [buyQuantities]="buyQuantities"
       [qtmulti]="qtmulti"
       [worldMoney]="world.money"
+      [angelBonus]="( 1 + (world.activeangels * world.angelbonus/100))"
       [managerUnlocked]="product.managerUnlocked"
       (startManualProduction)="onManualProductionStarted($event)"
       (notifyProduction)="onProductionDone($event)"
