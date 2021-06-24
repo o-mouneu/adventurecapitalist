@@ -28,7 +28,7 @@
       <ul>
         <li><a href="#" mat-raised-button color="accent">Unlocks</a></li>
         <li><a href="#" mat-raised-button color="accent">Upgrades</a></li>
-        <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent" [matBadge]="badgeThis() ? '1' : '0'" [matBadgeHidden]="!badgeThis()">Managers</a></li>
+        <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.managers.pallier)">Managers</a></li>
         <li><a href="#" mat-raised-button color="accent">Investors</a></li>
         <li>
           <!--<iframe

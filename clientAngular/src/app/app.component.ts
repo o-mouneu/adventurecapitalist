@@ -65,8 +65,14 @@ export class AppComponent {
     this._showManagers = value;
   }
 
-  badgeThis(){
-    return true;
+  badgeThis(liste: Pallier[]){
+    let value = false;
+    for (var pallier of liste){
+      if (pallier.unlocked == false && pallier.seuil <= this.world.money){
+        value = true;
+      }
+    }
+    return value;
   }
 
   onManualProductionStarted(product: Product){
