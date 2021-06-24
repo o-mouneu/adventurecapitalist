@@ -5,6 +5,22 @@ header {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
 
+    #title{
+
+        font-weight: bold;
+        font-size: 2em;
+        letter-spacing: 0.1em;
+    }
+
+    #money span{
+        font-size: 1.5em;
+    }
+    #money span.nombre{
+        font-weight: bold;
+        font-size: 1.25em;
+        color: rgb(255, 174, 0);
+    }
+
     #title, #joueurID{
         margin: 10px;
         text-align: left;
@@ -19,7 +35,7 @@ header {
 
         figure {
             background-color: white;
-            border: 3px solid black;
+            border: 3px solid rgb(255, 174, 0);
             border-radius: 50%;
             width: $logo-container-width;
             height: $logo-container-width;
@@ -36,6 +52,18 @@ header {
                 margin: 15% 0;
             }
         
+        }
+
+        .holy-light{
+            vertical-align: middle;
+            width: 4*$logo-container-width;
+            height: 4*$logo-container-width;
+            float: left;
+            z-index: -1;
+            position: absolute;
+            top: -128px;
+            left: -128px;
+            background: radial-gradient(#ffffff,#ffffff00 70%);
         }
 
         span {
