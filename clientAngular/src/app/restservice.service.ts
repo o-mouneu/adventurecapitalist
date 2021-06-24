@@ -48,10 +48,18 @@ export class RestserviceService {
     .toPromise().catch(this.handleError);
   }
 
-  putProduct(product: Product){
+  putProduct(product){
     console.log("putProduct triggered avec X-user : "+this.user);
     console.log(product);
     this.http.put<Product>(this._server + "adventureisis/generic/product", product,
+    { headers: this.setHeaders(this.user)})
+    .toPromise().catch(this.handleError);
+  }
+
+  putUpgrade(pallier) {
+    console.log("putUpgrade triggered avec X-user : "+this.user);
+    console.log(pallier);
+    this.http.put<Product>(this._server + "adventureisis/generic/upgrade", pallier,
     { headers: this.setHeaders(this.user)})
     .toPromise().catch(this.handleError);
   }

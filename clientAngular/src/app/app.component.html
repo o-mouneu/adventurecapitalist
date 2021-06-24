@@ -29,6 +29,7 @@
         <li><a (click)="showUnlocks = true" href="#" mat-raised-button color="accent">Unlocks</a></li>
         <li><a href="#" mat-raised-button color="accent">Upgrades</a></li>
         <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.managers.pallier)">Managers</a></li>
+        <li><a (click)="showUpgrades = true" href="#" mat-raised-button color="accent">Upgrades</a></li>
         <li><a href="#" mat-raised-button color="accent">Investors</a></li>
         <li>
           <!--<iframe
@@ -95,5 +96,28 @@
       </div>
     </div>
     <button class="closebutton" mat-raised-button color="primary" (click)="showUnlocks=false">Close</button>
+  </div>
+</div>
+<div *ngIf="showUpgrades" class="modal">
+  <div>
+    <h1 class="title">Upgrades</h1>
+  </div>
+  <div>
+    <div *ngFor="let upgrade of world.upgrades.pallier">
+      <div *ngIf="!upgrade.unlocked" class="managerslayout">
+        <div>
+          <div class="logo"><img class="round" [attr.src]="server+upgrade.logo" /> </div>
+        </div>
+        <div>
+          <div class="upgradename"> {{ upgrade.name}} </div>
+          <div class="upgradecible"> {{ world.products.product[upgrade.idcible-1].name }} ( x{{ upgrade.ratio}} {{ upgrade.typeratio }}) </div>
+          <div class="upgradecost"> {{ upgrade.seuil}} $ </div>
+        </div>
+        <div>
+           <button (click)="buyUpgrade(upgrade)" class="hirebutton" mat-raised-button [ngClass]="(world.money >= upgrade.seuil) ? 'mat-accent' : 'mat-button-disabled'">Buy !</button>
+        </div>
+      </div>
+    </div>
+    <button class="closebutton" mat-raised-button color="primary" (click)="showUpgrades=false">Close</button>
   </div>
 </div>

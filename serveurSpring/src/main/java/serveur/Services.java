@@ -132,25 +132,27 @@ public class Services {
 			
 			System.out.println("\tCOUT :  u0 " + coutProduitBase + " un (n=" + qtchange + ") => TOTAL : " + coutTotal );
 			
-			if( world.getMoney() < coutTotal ) {
-				System.out.println("\tPas assez d'argent");
-				return false;
-			} else {
+			if( world.getMoney() >= coutTotal ) {
+				
 			// achat du produit
 				world.setMoney(world.getMoney() - coutTotal);
 				product.setQuantite(nouvelleQuantite);
-				product.setTimeleft(0);
 				// Un = U0 * q^n
 				product.setCout(coutProduitBase*Math.pow(croissance, qtchange));
 
 				System.out.println("\t" + qtchange + " produits achetés");
+			} else {
+				System.out.println("\tPas assez d'argent");
+				return false;
 			}
 			
 			
 		} else {
-			if (product.getTimeleft() == 0) {
-				product.setTimeleft( product.getVitesse() );
-				System.out.println("\tDébut de production");
+			if ( product.getQuantite() > 0 ) {
+				if (product.getTimeleft() == 0) {
+					product.setTimeleft( product.getVitesse() );
+					System.out.println("\tDébut de production");
+				}
 			}
 		}
 
@@ -202,14 +204,20 @@ public class Services {
 		
 		// Trouver le manager et le produit associé
 		List<PallierType> allUpgrades = world.getUpgrades().getPallier();
+		System.out.println("\tSearch : " + cashupgrade.getName());
 		
+		// Cherche upgrade dans liste upgrades
 		for(int p=0; p<allUpgrades.size(); p++) {
 			if( cashupgrade.getName().equals( allUpgrades.get(p).getName() ) ) {
-				if( allUpgrades.get(p).getSeuil() < world.getMoney() ) {
+				// Vérifier si assez d'argent
+				if( allUpgrades.get(p).getSeuil() <= world.getMoney() ) {
 					world.setMoney( world.getMoney()-allUpgrades.get(p).getSeuil() );
 					allUpgrades.get(p).setUnlocked(true);
+					System.out.println("Upgrade " + allUpgrades.get(p).getName() + " achetée ! (" + allUpgrades.get(p).getTyperatio()  + " " + allUpgrades.get(p).getRatio() + ")");
+
 					applyBonus(world, cashupgrade);
 				} else {
+					System.out.println("\tPas assez d'argent");
 					return false;
 				}
 			}
@@ -228,7 +236,7 @@ public class Services {
 		
 		for(int p=0; p<allAngelupgrades.size(); p++) {
 			if( angelupgrade.getName().equals( allAngelupgrades.get(p).getName() ) ) {
-				if( allAngelupgrades.get(p).getSeuil() < world.getActiveangels() ) {
+				if( allAngelupgrades.get(p).getSeuil() <= world.getActiveangels() ) {
 					world.setActiveangels( world.getActiveangels()-allAngelupgrades.get(p).getSeuil() );
 					allAngelupgrades.get(p).setUnlocked(true);
 					
@@ -252,13 +260,18 @@ public class Services {
 		List<ProductType> allProducts = world.getProducts().getProduct();
 		
 		for(int p=0; p<allUnlocks.size(); p++) {
+			
+			// Trouver l'unlock
 			if( unlock.getName().equals( allUnlocks.get(p).getName() ) ) {
 				double seuilUnlock = allUnlocks.get(p).getSeuil();
 				boolean isSeuilOk = true;
+				// Verifier si tous les produits ont atteint le seuil
 				for(int pro=0; pro < allProducts.size(); pro++) {
 					isSeuilOk = (allProducts.get(pro).getQuantite()>=seuilUnlock)? true: false;
 				}
+				// Appliquer le bonus
 				if( isSeuilOk ) {
+					allUnlocks.get(p).setUnlocked(true);
 					applyBonus(world, unlock);
 					return true;
 				}
@@ -270,22 +283,27 @@ public class Services {
 		return false;
 	}
 	
-	public Boolean updateProductunlock(String username, ProductType product, PallierType unlock) {
+	public Boolean updateProductunlock(String username, PallierType unlock) {
 		
 		World world = getWorld(username);
 		
-		// Trouver le manager et le produit associé
-		ProductType worldProduct = findProductById(world, product.getId());
+		// Trouver le produit associé
+		ProductType worldProduct = findProductById(world, unlock.getIdcible());
 		
 		if(worldProduct == null)
 			return false;
 		
 		List<PallierType> productUnlocks = worldProduct.getPalliers().getPallier();
+		
+		// Chercher l'unlock
 		for(int p=0; p<productUnlocks.size(); p++) {
 			if( unlock.getName().equals(productUnlocks.get(p).getName()) ) {
+				
+				// Verifier si quantite de produti dépasse seuil
 				if( productUnlocks.get(p).getSeuil() >= unlock.getSeuil() ) {
-					unlock.setUnlocked(true);
-					applyBonus(world, unlock);
+					productUnlocks.get(p).setUnlocked(true);
+					// Appliquer le bonus
+					applyBonus(world, productUnlocks.get(p));
 					return true;
 				}
 			}
@@ -320,14 +338,16 @@ public class Services {
 
 			if(idCible==0) {
 				for(int p=0; p<worldProducts.size(); p++) {
-					worldProducts.get(p).setVitesse( worldProducts.get(p).getVitesse()*bonusVitesse );
+					worldProducts.get(p).setVitesse( worldProducts.get(p).getVitesse()/bonusVitesse );
 					worldProducts.get(p).setRevenu( worldProducts.get(p).getRevenu()*bonusGain );
+					System.out.println("\tP: " + worldProducts.get(p).getName() + " " + pallier.getRatio() + " " +pallier.getTyperatio());
 				}
 			} else {
 				for(int p=0; p<worldProducts.size(); p++) {
 					if( worldProducts.get(p).getId() == idCible) {
-						worldProducts.get(p).setVitesse( worldProducts.get(p).getVitesse()*bonusVitesse );
+						worldProducts.get(p).setVitesse( worldProducts.get(p).getVitesse()/bonusVitesse );
 						worldProducts.get(p).setRevenu( worldProducts.get(p).getRevenu()*bonusGain );
+						System.out.println("\tP: " + worldProducts.get(p).getName() + " " + pallier.getRatio() + " " +pallier.getTyperatio());
 					}
 				}
 			}
@@ -423,8 +443,8 @@ public class Services {
 		// SI Produit a un Manager
 		if( worldProduct.isManagerUnlocked() ) {
 			System.out.println("\tMANAGED");
-			
-			if( duree-timeleft > 0 ) {
+			System.out.println("\t\tDuree " + duree + "  -  TL = " + timeleft + "  -  vitesse : " + vitesse );
+			if( duree-vitesse >= 0 & duree > 0) {
 				long dureeSansTimeleft = (duree-timeleft);
 				nbCycleProduction = (int) Math.floor(dureeSansTimeleft / (vitesse)) + 1;
 				// Nouveau  Timeleft = dureeSansTimeleft - tempsPassePourLesXCycles
@@ -439,12 +459,9 @@ public class Services {
 			
 			// SI le produit est en cours de production
 			if( timeleft > 0 ) {
-				
-				// calculTimeleft => verifier si un produit créé pendant temps écoulé
-				long calculTimeleft = duree-timeleft;
-				
+								
 				// Le produit a été créé durant le temps écoulé
-				if( calculTimeleft >= 0 ) {
+				if( duree >= timeleft ) {
 					nbCycleProduction = 1;
 					worldProduct.setTimeleft(0);
 					System.out.println("\t Production terminée");

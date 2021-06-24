@@ -122,6 +122,41 @@ public class Webservice {
 	}
 	
 	/*
+	 * Déblocage d'un unlock
+	 * @PARAM : {pallierType}
+	 */
+	@PUT
+	@Path("productunlock")
+	@Produces(MediaType.APPLICATION_XML)
+	public Response putUnlock(@Context HttpServletRequest request, PallierType p) {
+		String username = request.getHeader("X-user");
+
+		if(	!services.updateProductunlock(username, p) ) {
+			return Response.status(queryImpossible).entity("Product unlock NON débloqué").build();
+		}
+		
+		return Response.ok().build();
+	}
+	
+	/*
+	 * Déblocage d'un unlock
+	 * @PARAM : {pallierType}
+	 */
+	@PUT
+	@Path("globalunlock")
+	@Produces(MediaType.APPLICATION_XML)
+	public Response putGlobalunlock(@Context HttpServletRequest request, PallierType p) {
+		String username = request.getHeader("X-user");
+
+		if(	!services.updateGlobalunlock(username, p) ) {
+			return Response.status(queryImpossible).entity("Global unlock NON débloqué").build();
+		}
+		
+		return Response.ok().build();
+	}
+	
+	
+	/*
 	 * Achat d'un angel upgrade
 	 * @PARAM : {pallierType}
 	 */
