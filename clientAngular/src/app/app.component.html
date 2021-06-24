@@ -26,7 +26,7 @@
   <aside>
     <nav>
       <ul>
-        <li><a href="#" mat-raised-button color="accent">Unlocks</a></li>
+        <li><a (click)="showUnlocks = true" href="#" mat-raised-button color="accent">Unlocks</a></li>
         <li><a href="#" mat-raised-button color="accent">Upgrades</a></li>
         <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.managers.pallier)">Managers</a></li>
         <li><a href="#" mat-raised-button color="accent">Investors</a></li>
@@ -64,12 +64,12 @@
     <div *ngFor="let manager of world.managers.pallier">
       <div *ngIf="!manager.unlocked" class="managerslayout">
         <div>
-          <div class="logo"><img class="round" [attr.src]="server+manager.logo" /> </div>
+          <div class="logo"><img class="round" [attr.src]="server+manager.logo"/></div>
         </div>
         <div>
-          <div class="managername"> {{ manager.name}} </div>
-          <div class="managercible"> {{ world.products.product[manager.idcible-1].name }} </div>
-          <div class="managercost"> {{ manager.seuil}} </div>
+          <div class="managername">{{ manager.name }}</div>
+          <div class="managercible">{{ world.products.product[manager.idcible-1].name }}</div>
+          <div class="managercost">{{ manager.seuil }}</div>
         </div>
         <div>
           <button (click)="hireManager(manager)" class="hirebutton" mat-raised-button [ngClass]="(world.money >= manager.seuil) ? 'mat-accent' : 'mat-button-disabled'">Hire !</button>
@@ -77,5 +77,23 @@
       </div>
     </div>
     <button class="closebutton" mat-raised-button color="primary" (click)="showManagers=false">Close</button>
+  </div>
+</div>
+<div *ngIf="showUnlocks" class="modal">
+  <div>
+    <h1 class="title">Unlocks make investments more worthy !</h1>
+  </div>
+  <div>
+    <div *ngFor="let unlock of generateUnlockList()">
+      <div *ngIf="!unlock.unlocked" class="managersLayout">
+        <div class="logo"><img class="round" [attr.src]="server+unlock.logo"/></div>
+      </div>
+      <div>
+        <div class="managername">{{ unlock.name }}</div>
+        <div class="managercible" [innerHTML]="(unlock.idcible > 0) ? world.products.product[unlock.idcible-1].name : 'All'"></div>
+        <div class="managercost">{{ unlock.seuil }}</div>
+      </div>
+    </div>
+    <button class="closebutton" mat-raised-button color="primary" (click)="showUnlocks=false">Close</button>
   </div>
 </div>

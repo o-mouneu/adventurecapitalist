@@ -27,6 +27,8 @@ export class AppComponent {
   _showManagers: boolean = false;
   badgeManagers: number = 0;
 
+  _showUnlocks: boolean = false;
+
   username: any;
 
   constructor(private service: RestserviceService, private snackBar: MatSnackBar) {
@@ -63,6 +65,14 @@ export class AppComponent {
 
   public set showManagers(value:boolean){
     this._showManagers = value;
+  }
+
+  public get showUnlocks(){
+    return this._showUnlocks;
+  }
+
+  public set showUnlocks(value:boolean){
+    this._showUnlocks = value;
   }
 
   badgeThis(liste: Pallier[]){
@@ -140,6 +150,20 @@ export class AppComponent {
 
   randIndex(array){
     return Math.floor(Math.random() * array.length);
+  }
+
+  generateUnlockList(){
+    let liste: Array<Pallier> = [];
+    for( let i=0; i < this.world.products.product[0].palliers.pallier.length; i++){
+      //console.log("for "+this.world.products.product[0].palliers.pallier.length);
+      for( let product of this.world.products.product ){
+        //console.log("for "+ product.name +" : "+ product.palliers.pallier[i].name);
+        liste.push( product.palliers.pallier[i] );
+      }
+      //console.log("allunlock "+i+" : "+this.world.allunlocks.pallier[i]);
+      liste.push( this.world.allunlocks.pallier[i] );
+    }
+    return liste;
   }
 
 }

@@ -22,12 +22,12 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Veolia Sacra</name>
+					<name>Cul-glisse dans l'église</name>
 					<logo>TODO</logo>
-					<seuil>500</seuil>
+					<seuil>20</seuil>
 					<idcible>1</idcible>
-					<ratio>1</ratio>
-					<typeratio>vitesse</typeratio>
+					<ratio>5</ratio>
+					<typeratio>gain</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
 			</palliers>
@@ -45,12 +45,12 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Jules l'enfant de cœur</name>
+					<name>Distribution de pain</name>
 					<logo>TODO</logo>
-					<seuil>2000</seuil>
+					<seuil>20</seuil>
 					<idcible>2</idcible>
-					<ratio>1</ratio>
-					<typeratio>vitesse</typeratio>
+					<ratio>5</ratio>
+					<typeratio>gain</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
 			</palliers>
@@ -68,11 +68,11 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Johannes Gutenberg</name>
+					<name>Prosélitisme</name>
 					<logo>TODO</logo>
-					<seuil>8000</seuil>
+					<seuil>20</seuil>
 					<idcible>3</idcible>
-					<ratio>1</ratio>
+					<ratio>5</ratio>
 					<typeratio>vitesse</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
@@ -91,12 +91,12 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Abbé Pierre</name>
+					<name>Absolution</name>
 					<logo>TODO</logo>
-					<seuil>32000</seuil>
+					<seuil>20</seuil>
 					<idcible>4</idcible>
-					<ratio>1</ratio>
-					<typeratio>vitesse</typeratio>
+					<ratio>5</ratio>
+					<typeratio>gain</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
 			</palliers>
@@ -114,12 +114,12 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Inquisition espagnole</name>
+					<name>Incendies</name>
 					<logo>TODO</logo>
-					<seuil>128000</seuil>
+					<seuil>20</seuil>
 					<idcible>5</idcible>
-					<ratio>1</ratio>
-					<typeratio>vitesse</typeratio>
+					<ratio>5</ratio>
+					<typeratio>gain</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
 			</palliers>
@@ -137,11 +137,11 @@
 			<managerUnlocked>false</managerUnlocked>
 			<palliers>
 				<pallier>
-					<name>Pape Innocent IX</name>
+					<name>Patrimoine protégé par l'UNESCO</name>
 					<logo>TODO</logo>
-					<seuil>512000</seuil>
-					<idcible>2</idcible>
-					<ratio>1</ratio>
+					<seuil>20</seuil>
+					<idcible>6</idcible>
+					<ratio>5</ratio>
 					<typeratio>vitesse</typeratio>
 					<unlocked>false</unlocked>
 				</pallier>
@@ -150,11 +150,11 @@
 	</products>
 	<allunlocks>
 		<pallier>
-			<name>TODO</name>
+			<name>Eucharistie</name>
 			<logo>TODO</logo>
-			<seuil>TODO</seuil>
-			<idcible>TODO</idcible>
-			<ratio>TODO</ratio>
+			<seuil>20</seuil>
+			<idcible>0</idcible>
+			<ratio>5</ratio>
 			<typeratio>vitesse</typeratio>
 			<unlocked>false</unlocked>
 		</pallier>

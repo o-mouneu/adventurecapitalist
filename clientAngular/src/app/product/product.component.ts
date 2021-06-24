@@ -142,10 +142,26 @@ export class ProductComponent implements OnInit {
     if (this.isProductBuyable()){
       this.product.quantite += this._quantityForCostOfBuy[0];
       this.product.cout = this.product.cout * (this.product.croissance ** this._quantityForCostOfBuy[0]);
+
       this.notifyBuyCost.emit(this._quantityForCostOfBuy[1]);
       console.log("notifyBuyCost sent to app.component");
+
       this.notifyBuyProduct.emit(this.product);
       console.log("notifyBuyProduct sent to app.component");
+
+      /*for( let unlock of this.product.palliers.pallier ){
+        if( !unlock.unlocked && this.product.quantite >= unlock.seuil) {
+          switch( unlock.typeratio ){
+            case "vitesse":
+              this.product.vitesse /= unlock.ratio;
+              break;
+            case "gain":
+              this.product.revenu *= unlock.ratio;
+              break;
+
+          }
+        }
+      }*/
     }
   }
 
