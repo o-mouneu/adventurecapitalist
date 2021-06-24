@@ -24,6 +24,7 @@ export class AppComponent {
   qtmulti = this.buyQuantities[this.qtmultiIndex];
 
   _showManagers = false;
+  _showUpgrades = false;
 
   username: any;
 
@@ -63,6 +64,15 @@ export class AppComponent {
     this._showManagers = value;
   }
 
+
+  public get showUpgrades(){
+    return this._showUpgrades;
+  }
+
+  public set showUpgrades(value:boolean){
+    this._showUpgrades = value;
+  }
+
   onManualProductionStarted(product: Product){
     this.service.putProduct(product);
     console.log("onManualProductionStarted sent to server:");
@@ -97,6 +107,18 @@ export class AppComponent {
     }
   }
 
+  /*
+    Buy upgrade
+  */
+  buyUpgrade(upgrade : Pallier){
+    if(this.world.money >= upgrade.seuil){
+      this.world.money -= upgrade.seuil;
+      upgrade.unlocked = true;
+    }
+    this.applyUpgrade(upgrade);
+    this.service.putUpgrade(upgrade);
+  }
+
   generateRandomUsername(){
     let titre = ["Abbe","Fidele","Frere"];
     let nom = ["Pierre","Jean","Marc"];
@@ -122,6 +144,51 @@ export class AppComponent {
 
   randIndex(array){
     return Math.floor(Math.random() * array.length);
+  }
+
+
+  findProductById(idCible : number) {
+    for(let p=0; p<this.world.products.product.length; p++ ) {
+      if( this.world.products.product[p].id == idCible )
+        return this.world.products.product[p];
+    }
+    return null;
+  }
+
+
+  applyUpgrade(pallier : Pallier) {
+    if( pallier.typeratio == "anges") {
+
+    } else {
+      let idCible = pallier.idcible;
+      let bonusVitesse = 1;
+      let bonusGain = 1;
+
+      if( pallier.typeratio == "vitesse") 
+        bonusVitesse = pallier.ratio;
+      
+      if( pallier.typeratio == "gain") 
+        bonusGain = pallier.ratio;
+      
+      console.log(" BONUS : " + bonusVitesse + " / " + bonusGain);
+
+      if( idCible == 0 ) {
+        for(let p=0; p<this.world.products.product.length; p++ ) {
+          this.world.products.product[p].revenu /= bonusGain;
+          this.world.products.product[p].vitesse /= bonusVitesse;
+        }
+      } else {
+        let productcible = this.findProductById(idCible);
+        if( productcible != null ) {
+          productcible.revenu /= bonusGain;
+          productcible.vitesse /= bonusVitesse;
+          console.log("Bonus applied");
+        } else {
+          console.log("Produit introuvable");
+        }
+      }
+    }
+     
   }
 
 }

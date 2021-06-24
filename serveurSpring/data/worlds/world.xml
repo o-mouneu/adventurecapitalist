@@ -175,7 +175,7 @@
 			<seuil>50O</seuil>
 			<idcible>2</idcible>
 			<ratio>2</ratio>
-			<typeratio>vitesse</typeratio>
+			<typeratio>gain</typeratio>
 			<unlocked>false</unlocked>
 		</pallier>
 		<pallier>

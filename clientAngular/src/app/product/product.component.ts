@@ -103,7 +103,7 @@ export class ProductComponent implements OnInit {
   notifyBuyCost: EventEmitter<number> = new EventEmitter<number>();
 
   calcScore(){
-
+    // mettre à jour Product timeleft
     if ( this.product.timeleft !=0 ){
       this.product.timeleft = this.product.timeleft - (Date.now() - this.lastupdate);
       this.lastupdate = Date.now();
@@ -112,6 +112,8 @@ export class ProductComponent implements OnInit {
       this.product.timeleft = 0;
       this.progressbarvalue = 0;
       this._onProduction = false;
+
+      //Event
       this.notifyProduction.emit(this.product);
       console.log("notifyProduction sent to app.component");
 
@@ -120,11 +122,14 @@ export class ProductComponent implements OnInit {
       console.log("Argent :");
       console.log(this.worldMoney+this.product.revenu*this.product.quantite);
 
+      //Demarrer nouvelle production
       if( this.product.managerUnlocked ){
         this.startFabrication(true);
       }
 
     }
+
+    // Changer progress bar
     if (this.product.timeleft > 0){
       this.progressbarvalue = ((this.product.vitesse - this.product.timeleft) / this.product.vitesse) * 100;
     }
