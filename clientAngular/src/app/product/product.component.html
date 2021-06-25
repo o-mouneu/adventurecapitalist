@@ -3,7 +3,13 @@
         <figure>
             <img [src]="server+product.logo"/>
         </figure>
-        <mat-progress-spinner class="example-margin" mode="determinate" [value]="progressbarvalue * 1.4" color="accent"></mat-progress-spinner>
+        <div *ngIf="!product.managerUnlocked; then determinate else indeterminate"></div>
+        <ng-template #determinate>
+            <mat-progress-spinner class="example-margin" mode="determinate" [value]="progressbarvalue * 1.4" color="accent"></mat-progress-spinner>
+        </ng-template>
+        <ng-template #indeterminate>
+            <mat-progress-spinner class="example-margin" mode="indeterminate" color="accent"></mat-progress-spinner>
+        </ng-template>
         <p>
             <span class="nombre">{{product.quantite}}</span> {{product.name}}
             <br/>pardonnent<br/>

@@ -8,7 +8,8 @@
   </div>
   <div id="money">
     <!-- ajout de &nbsp; pour insérer un espace -->
-    <span><span [innerHTML]="world.money | bigvalue" class="nombre"></span>&nbsp;péchés pardonnés</span>
+    <span><span [innerHTML]="world.money | bigvalue" class="nombre"></span>&nbsp;péchés pardonnés</span><br/>
+    <span><span [innerHTML]="world.activeangels | bigvalue" class="nombre"></span>&nbsp;anges</span>
   </div>
   <div id="quantite">
     <button (click)="switchBuyQuantity()" mat-raised-button color="primary">{{qtmulti}}</button>
@@ -26,9 +27,9 @@
     <nav>
       <ul>
         <li><a (click)="showUnlocks = true" href="#" mat-raised-button color="accent">Unlocks</a></li>
-        <li><a (click)="showUpgrades = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.upgrades.pallier)">Cash upgrades</a></li>
-        <li><a (click)="showAngelupgrades = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.angelupgrades.pallier)">Angel upgrades</a></li>
-        <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.managers.pallier)">Managers</a></li>
+        <li><a (click)="showUpgrades = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.upgrades.pallier, world.money)">Cash upgrades</a></li>
+        <li><a (click)="showAngelupgrades = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.angelupgrades.pallier, world.activeangels)">Angel upgrades</a></li>
+        <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.managers.pallier, world.money)">Managers</a></li>
         <li><a (click)="showInvestors = true" href="#" mat-raised-button color="accent">Investors</a></li>
         <li>
           <iframe

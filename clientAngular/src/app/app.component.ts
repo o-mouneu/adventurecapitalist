@@ -93,10 +93,10 @@ export class AppComponent {
     this._showInvestors = value;
   }
 
-  badgeThis(liste: Pallier[]){
+  badgeThis(liste: Pallier[], money: number){
     let value = false;
     for (var pallier of liste){
-      if (pallier.unlocked == false && pallier.seuil <= this.world.money){
+      if (pallier.unlocked == false && pallier.seuil <= money){
         value = true;
       }
     }
