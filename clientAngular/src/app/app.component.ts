@@ -194,10 +194,11 @@ export class AppComponent {
     if(this.world.activeangels >= upgrade.seuil){
       this.world.activeangels -= upgrade.seuil;
       upgrade.unlocked = true;
+      this.applyUpgrade(upgrade);
+      this.service.putAngelupgrade(upgrade);
+      this.popMessage(upgrade.name+" bought!");
     }
-    this.applyUpgrade(upgrade);
-    this.service.putAngelupgrade(upgrade);
-    this.popMessage(upgrade.name+" bought!");
+    
   }
 
 
