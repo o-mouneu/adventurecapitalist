@@ -179,10 +179,11 @@ export class AppComponent {
     if(this.world.money >= upgrade.seuil){
       this.world.money -= upgrade.seuil;
       upgrade.unlocked = true;
+      this.applyUpgrade(upgrade);
+      this.service.putUpgrade(upgrade);
+      this.popMessage(upgrade.name+" bought!");
     }
-    this.applyUpgrade(upgrade);
-    this.service.putUpgrade(upgrade);
-    this.popMessage(upgrade.name+" bought!");
+    
   }
 
 
