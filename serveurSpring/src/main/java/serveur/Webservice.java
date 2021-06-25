@@ -194,29 +194,28 @@ public class Webservice {
 		return Response.ok().build();
 	}
 	
-	
-  @GET
-  @Produces(MediaType.APPLICATION_OCTET_STREAM)
-  @Path("static/{filename}")
-  public Response staticResources(@PathParam("filename") String filename) {
-	System.out.println("Fichier : " + filename);
-	
-	String assetsPath = "./assets/";
-	File fichier = new File(assetsPath + filename );
-	
-	if( !fichier.exists() ) {
-		return Response.status(404).build();
-	}
-    /*return Objects.isNull(resource)
-        ? Response.status(202).build()
-        : Response.ok().entity(resource).build();*/
-	//return Response.ok(services.entity(fichier)).build();
 
-	return Response.ok(fichier, MediaType.APPLICATION_OCTET_STREAM)
-	        .header("Content-Disposition", "attachment; filename=\"" + fichier.getName() + "\"")
-	        .build();
-	
-  }
+
+
+	/*
+	 * Servir le contenu du dossier assets
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	@Path("assets/{filename}")
+	public Response staticResources(@PathParam("filename") String filename) {
+		System.out.println("Fichier : " + filename);
+		
+		String assetsPath = "./assets/";
+		File fichier = new File(assetsPath + filename );
+		
+		if( !fichier.exists() ) {
+			return Response.status(404).build();
+		}
+		return Response.ok(fichier, MediaType.APPLICATION_OCTET_STREAM)
+		        .header("Content-Disposition", "attachment; filename=\"" + fichier.getName() + "\"")
+			        .build();
+	}
 	
 	
 	
