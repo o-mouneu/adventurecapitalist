@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <world>
 	<name>Vatican Capitalist</name>
-	<logo>world-logo-armoirie-vatican.svg</logo>
+	<logo>logo.png</logo>
 	<money>0</money>
 	<score>0</score>
 	<totalangels>0</totalangels>
@@ -337,7 +337,7 @@
 		</pallier>
 		<pallier>
 			<name>Jesus Script</name>
-			<logo>TODO</logo>
+			<logo>manager-7-jesus-christ.png</logo>
 			<seuil>1000000</seuil>
 			<idcible>0</idcible>
 			<ratio>10</ratio>
