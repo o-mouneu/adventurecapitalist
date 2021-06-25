@@ -24,14 +24,13 @@ export class AppComponent {
   badgeManagers: number = 0;
 
   _showUnlocks: boolean = false;
-
+  logo: string;
   username: any;
 
   constructor(private service: RestserviceService, private snackBar: MatSnackBar) {
 
     this.username = localStorage.getItem("username");
     console.log("username : "+this.username);
-
     if(this.username == ""){
       this.username = this.generateRandomUsername();
       localStorage.setItem("username", this.username);
@@ -46,6 +45,8 @@ export class AppComponent {
         this.world = world;
         console.log("world got :");
         console.log(this.world);
+        console.log("logo : "+ this.world.logo);
+        this.logo = this.world.logo;
       }
     );
 
