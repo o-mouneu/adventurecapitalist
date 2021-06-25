@@ -49,7 +49,7 @@ export class AppComponent {
       }
     );
 
-    this.server = "assets/img/";
+    this.server = this.service._server+"adventureisis/generic/assets/";
 
   }
 
