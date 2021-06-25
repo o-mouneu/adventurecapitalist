@@ -14,6 +14,7 @@ header {
 
     #money span{
         font-size: 1.5em;
+        line-height: 1.5em;
     }
     #money span.nombre{
         font-weight: bold;
@@ -116,4 +117,56 @@ aside{
     border: solid;
     top:10%; /* a 10% du haut */
     left:20%; /* a 20% de la gauche */
+
+    .layout{
+        display: inline-block;
+        width: 46%;
+        margin: 2%;
+
+        .logo,.name{
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .logo{
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            border: 1px solid black;
+            background-color: white;
+
+            img{
+                border-radius: 50%;
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+
+        .name{
+            margin: 5px;
+        }
+
+    }
+
+}
+
+#investors div{
+    width: 50%;
+    margin: auto;
+    text-align: center;
+
+    img{
+        width: 100%;
+        margin: 20px auto;
+    }
+
+    button{
+        display: block;
+    }
+    button:first-of-type{
+        margin: auto;
+    }
+    button:last-of-type{
+        float: right;
+    }
 }

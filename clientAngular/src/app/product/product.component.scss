@@ -1,5 +1,5 @@
 $logo-container-width: 100px;
-$logo-width: 60%;
+$logo-width: 100%;
 
 div {
     margin: 10px;
@@ -44,7 +44,7 @@ div {
         img {
             max-width: $logo-width;
             max-height: $logo-width;
-            margin: 20% 0;
+            margin: 0;
         }
     
     }

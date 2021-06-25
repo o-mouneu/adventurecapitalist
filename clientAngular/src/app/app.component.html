@@ -8,7 +8,8 @@
   </div>
   <div id="money">
     <!-- ajout de &nbsp; pour insérer un espace -->
-    <span><span [innerHTML]="world.money | bigvalue" class="nombre"></span>&nbsp;péchés pardonnés</span>
+    <span><span [innerHTML]="world.money | bigvalue" class="nombre"></span>&nbsp;péchés pardonnés</span><br/>
+    <span><span [innerHTML]="world.activeangels | bigvalue" class="nombre"></span>&nbsp;anges</span>
   </div>
   <div id="quantite">
     <button (click)="switchBuyQuantity()" mat-raised-button color="primary">{{qtmulti}}</button>
@@ -26,10 +27,10 @@
     <nav>
       <ul>
         <li><a (click)="showUnlocks = true" href="#" mat-raised-button color="accent">Unlocks</a></li>
-        <li><a (click)="showUpgrades = true" href="#" mat-raised-button color="accent">Cash upgrades</a></li>
-        <li><a (click)="showAngelupgrades = true" href="#" mat-raised-button color="accent">Angel upgrades</a></li>
-        <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.managers.pallier)">Managers</a></li>
-        <li><a (click)="resetWorld()" href="#" mat-raised-button color="accent">Ascend to heaven</a></li>
+        <li><a (click)="showUpgrades = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.upgrades.pallier, world.money)">Cash upgrades</a></li>
+        <li><a (click)="showAngelupgrades = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.angelupgrades.pallier, world.activeangels)">Angel upgrades</a></li>
+        <li><a (click)="showManagers = true" href="#" mat-raised-button color="accent" matBadge="0" matBadgeColor="warn" matBadgeSize="medium" [matBadgeHidden]="!badgeThis(world.managers.pallier, world.money)">Managers</a></li>
+        <li><a (click)="showInvestors = true" href="#" mat-raised-button color="accent">Investors</a></li>
         <li>
           <iframe
             src="https://www.youtube.com/embed/ygr5AHufBN4?autoplay=1&loop=1&playlist=ygr5AHufBN4"
@@ -50,6 +51,7 @@
       [worldMoney]="world.money"
       [angelBonus]="( 1 + (world.activeangels * world.angelbonus/100))"
       [managerUnlocked]="product.managerUnlocked"
+      [server]="server"
       (startManualProduction)="onManualProductionStarted($event)"
       (notifyProduction)="onProductionDone($event)"
       (notifyBuyProduct)="onBuyDoneProduct($event)"
@@ -62,15 +64,14 @@
     <h1 class="title">Managers make you feel better !</h1>
   </div>
   <div>
-    <div *ngFor="let manager of world.managers.pallier">
-      <div *ngIf="!manager.unlocked" class="managerslayout">
+    <div *ngFor="let manager of world.managers.pallier" class="layout">
+      <div *ngIf="!manager.unlocked">
         <div>
-          <div class="logo"><img class="round" [attr.src]="server+manager.logo"/></div>
+          <div class="logo"><img [attr.src]="server+manager.logo"/></div>
+          <div class="name">{{ manager.name }}</div>
         </div>
         <div>
-          <div class="managername">{{ manager.name }}</div>
-          <div class="managercible">{{ world.products.product[manager.idcible-1].name }}</div>
-          <div class="managercost">{{ manager.seuil }}</div>
+          <div class="cible"><span [innerHTML]="manager.seuil" class="nombre"></span>&nbsp; {{ world.products.product[manager.idcible-1].name }}</div>
         </div>
         <div>
           <button (click)="hireManager(manager)" class="hirebutton" mat-raised-button [ngClass]="(world.money >= manager.seuil) ? 'mat-accent' : 'mat-button-disabled'">Hire !</button>
@@ -85,12 +86,13 @@
     <h1 class="title">Unlocks make investments more worthy !</h1>
   </div>
   <div>
-    <div *ngFor="let unlock of generateUnlockList()">
-      <div *ngIf="!unlock.unlocked" class="managersLayout">
-        <div class="logo"><img class="round" [attr.src]="server+unlock.logo"/></div>
-        <div class="managername">{{ unlock.name }}</div>
-        <div class="managercible" [innerHTML]="(unlock.idcible > 0) ? world.products.product[unlock.idcible-1].name : 'All'"></div>
-        <div class="managercost">{{ unlock.seuil }}</div>
+    <div *ngFor="let unlock of generateUnlockList()" class="layout">
+      <div *ngIf="!unlock.unlocked">
+        <div class="logo"><img [attr.src]="server+unlock.logo"/></div>
+        <div class="name">{{ unlock.name }}</div>
+      </div>
+      <div>
+        <div class="cible"><span [innerHTML]="unlock.seuil" class="nombre"></span>&nbsp; <span [innerHTML]="(unlock.idcible > 0) ? world.products.product[unlock.idcible-1].name : 'All'"></span> ( x{{ unlock.ratio}} {{ unlock.typeratio }} )</div>
       </div>
     </div>
     <button class="closebutton" mat-raised-button color="primary" (click)="showUnlocks=false">Close</button>
@@ -101,15 +103,15 @@
     <h1 class="title">Upgrades</h1>
   </div>
   <div>
-    <div *ngFor="let upgrade of world.upgrades.pallier">
-      <div *ngIf="!upgrade.unlocked" class="managerslayout">
+    <div *ngFor="let upgrade of world.upgrades.pallier" class="layout">
+      <div *ngIf="!upgrade.unlocked">
         <div>
-          <div class="logo"><img class="round" [attr.src]="server+upgrade.logo" /> </div>
+          <div class="logo"><img [attr.src]="server+upgrade.logo" /> </div>
+          <div class="name"> {{ upgrade.name}} </div>
         </div>
         <div>
-          <div class="upgradename"> {{ upgrade.name}} </div>
-          <div class="upgradecible"> {{ world.products.product[upgrade.idcible-1].name }} ( x{{ upgrade.ratio}} {{ upgrade.typeratio }}) </div>
-          <div class="upgradecost"> {{ upgrade.seuil}} $ </div>
+          <div class="cible"> {{ world.products.product[upgrade.idcible-1].name }} ( x{{ upgrade.ratio}} {{ upgrade.typeratio }} ) </div>
+          <div class="cost"> {{ upgrade.seuil}} $ </div>
         </div>
         <div>
            <button (click)="buyUpgrade(upgrade)" class="hirebutton" mat-raised-button [ngClass]="(world.money >= upgrade.seuil) ? 'mat-accent' : 'mat-button-disabled'">Buy !</button>
@@ -119,22 +121,20 @@
     <button class="closebutton" mat-raised-button color="primary" (click)="showUpgrades=false">Close</button>
   </div>
 </div>
-
-
 <div *ngIf="showAngelupgrades" class="modal">
   <div>
     <h1 class="title">Angel Upgrades</h1>
   </div>
   <div>
-    <div *ngFor="let upgrade of world.angelupgrades.pallier">
-      <div *ngIf="!upgrade.unlocked" class="managerslayout">
+    <div *ngFor="let upgrade of world.angelupgrades.pallier" class="layout">
+      <div *ngIf="!upgrade.unlocked">
         <div>
-          <div class="logo"><img class="round" [attr.src]="server+upgrade.logo" /> </div>
+          <div class="logo"><img [attr.src]="server+upgrade.logo" /> </div>
+          <div class="name"> {{ upgrade.name}} </div>
         </div>
         <div>
-          <div class="upgradename"> {{ upgrade.name}} </div>
-          <div class="upgradecible"> + {{upgrade.ratio}}% bonus</div>
-          <div class="upgradecost"> {{ upgrade.seuil}} Angels </div>
+          <div class="cible"> + {{upgrade.ratio}}% bonus</div>
+          <div class="cost"> {{ upgrade.seuil}} Angels </div>
         </div>
         <div>
            <button (click)="buyAngelupgrade(upgrade)" class="hirebutton" mat-raised-button [ngClass]="(world.activeangels >= upgrade.seuil) ? 'mat-accent' : 'mat-button-disabled'">Buy !</button>
@@ -142,5 +142,13 @@
       </div>
     </div>
     <button class="closebutton" mat-raised-button color="primary" (click)="showAngelupgrades=false">Close</button>
+  </div>
+</div>
+<div *ngIf="showInvestors" class="modal" id="investors">
+  <div>
+    <img [src]="server+world.angelupgrades.pallier[0].logo"/>
+    <p>Ascend with {{world.totalangels}} angels</p>
+    <button (click)="resetWorld()" mat-raised-button color="accent">Ascend!</button>
+    <button class="closebutton" mat-raised-button color="primary" (click)="showInvestors = false">Close</button>
   </div>
 </div>
