@@ -17,7 +17,6 @@ public class JerseyConfig extends ResourceConfig {
 		System.out.println("Jersey config");
 		register(Webservice.class);
 		register(CORSResponseFilter.class);
-		register(StaticResourcesResource.class);
 	}
 	
 	
