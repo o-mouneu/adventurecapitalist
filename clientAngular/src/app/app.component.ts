@@ -49,7 +49,7 @@ export class AppComponent {
       }
     );
 
-    this.server = service._server;
+    this.server = "assets/img/";
 
   }
 
