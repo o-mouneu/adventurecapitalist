@@ -3,6 +3,7 @@ package serveur;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +17,11 @@ public class JerseyConfig extends ResourceConfig {
 		System.out.println("Jersey config");
 		register(Webservice.class);
 		register(CORSResponseFilter.class);
+		register(StaticResourcesResource.class);
 	}
+	
+	
+
 
 }
 

@@ -1,5 +1,7 @@
 package serveur;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,6 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import generated.PallierType;
@@ -45,8 +48,6 @@ public class Webservice {
 	}
 	
 
-
-	
 	
 	
 	/*
@@ -192,6 +193,30 @@ public class Webservice {
 		
 		return Response.ok().build();
 	}
+	
+	
+  @GET
+  @Produces(MediaType.APPLICATION_OCTET_STREAM)
+  @Path("static/{filename}")
+  public Response staticResources(@PathParam("filename") String filename) {
+	System.out.println("Fichier : " + filename);
+	
+	String assetsPath = "./assets/";
+	File fichier = new File(assetsPath + filename );
+	
+	if( !fichier.exists() ) {
+		return Response.status(404).build();
+	}
+    /*return Objects.isNull(resource)
+        ? Response.status(202).build()
+        : Response.ok().entity(resource).build();*/
+	//return Response.ok(services.entity(fichier)).build();
+
+	return Response.ok(fichier, MediaType.APPLICATION_OCTET_STREAM)
+	        .header("Content-Disposition", "attachment; filename=\"" + fichier.getName() + "\"")
+	        .build();
+	
+  }
 	
 	
 	
