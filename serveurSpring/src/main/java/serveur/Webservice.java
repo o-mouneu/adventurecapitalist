@@ -126,7 +126,7 @@ public class Webservice {
 	/*
 	 * Déblocage d'un unlock
 	 * @PARAM : {pallierType}
-	 */
+	
 	@PUT
 	@Path("productunlock")
 	@Produces(MediaType.APPLICATION_XML)
@@ -141,10 +141,10 @@ public class Webservice {
 		return Response.ok().build();
 	}
 	
-	/*
+	*
 	 * Déblocage d'un unlock
 	 * @PARAM : {pallierType}
-	 */
+	 *
 	@PUT
 	@Path("globalunlock")
 	@Produces(MediaType.APPLICATION_XML)
@@ -157,7 +157,7 @@ public class Webservice {
 		
 		return Response.ok().build();
 	}
-	
+	*/
 	
 	/*
 	 * Achat d'un angel upgrade

@@ -146,8 +146,14 @@ public class Services {
 			// achat du produit
 				world.setMoney(world.getMoney() - coutTotal);
 				product.setQuantite(nouvelleQuantite);
+				
+				
 				// Un = U0 * q^n
 				product.setCout(coutProduitBase*Math.pow(croissance, qtchange));
+				
+				// Update unlocks
+				updateProductunlock(username, product);
+				updateGlobalunlock(username);
 
 				System.out.println("\t" + qtchange + " produits achetés");
 			} else {
@@ -291,31 +297,43 @@ public class Services {
 	 * 
 	 * @return {Boolean} succès
 	 */
-	public Boolean updateGlobalunlock(String username, PallierType unlock) {
+	public Boolean updateGlobalunlock(String username) {
 		
 		World world = getWorld(username);
 		
 		// Trouver le manager et le produit associé
 		List<PallierType> allUnlocks = world.getAllunlocks().getPallier();
-		List<ProductType> allProducts = world.getProducts().getProduct();
+		List<ProductType> worldProducts = world.getProducts().getProduct();
+		
 		
 		for(int p=0; p<allUnlocks.size(); p++) {
-			
-			// Trouver l'unlock
-			if( unlock.getName().equals( allUnlocks.get(p).getName() ) ) {
-				double seuilUnlock = allUnlocks.get(p).getSeuil();
-				boolean isSeuilOk = true;
-				// Verifier si tous les produits ont atteint le seuil
-				for(int pro=0; pro < allProducts.size(); pro++) {
-					isSeuilOk = (allProducts.get(pro).getQuantite()>=seuilUnlock)? true: false;
+			if ( allUnlocks.get(p).isUnlocked() ) {
+				int idCible = allUnlocks.get(p).getIdcible();
+				if(idCible == 0) {
+					boolean isSeuilOk = true;
+					for(int a=0; a<worldProducts.size(); a++) {
+						if( worldProducts.get(a).getQuantite() >  allUnlocks.get(p).getSeuil()) {
+							isSeuilOk = false;
+						}
+					}
+					if (isSeuilOk) {
+						allUnlocks.get(p).setUnlocked(true);
+						System.out.println("UNLOCK Glob --- " + allUnlocks.get(p).getName());
+						applyBonus(world, allUnlocks.get(p));
+						saveWorldToXml(username, world);
+					}
+				} else {
+					for(int a=0; a<worldProducts.size(); a++) {
+						if( worldProducts.get(p).getId() == idCible) {
+							if( worldProducts.get(a).getQuantite() >= allUnlocks.get(p).getSeuil()) {
+								allUnlocks.get(p).setUnlocked(true);
+								System.out.println("UNLOCK Glob--- " + allUnlocks.get(p).getName());
+								applyBonus(world, allUnlocks.get(p));
+								saveWorldToXml(username, world);
+							}
+						}
+					}
 				}
-				// Appliquer le bonus
-				if( isSeuilOk ) {
-					allUnlocks.get(p).setUnlocked(true);
-					applyBonus(world, unlock);
-					return true;
-				}
-				return false;
 			}
 		}
 		
@@ -331,12 +349,12 @@ public class Services {
 	 * 
 	 * @return {Boolean} succès
 	 */
-	public Boolean updateProductunlock(String username, PallierType unlock) {
-		
+	public Boolean updateProductunlock(String username, ProductType product) {
+		System.out.println("CHECK BONUS");
 		World world = getWorld(username);
 		
 		// Trouver le produit associé
-		ProductType worldProduct = findProductById(world, unlock.getIdcible());
+		ProductType worldProduct = findProductById(world, product.getId());
 		
 		if(worldProduct == null)
 			return false;
@@ -345,16 +363,17 @@ public class Services {
 		
 		// Chercher l'unlock
 		for(int p=0; p<productUnlocks.size(); p++) {
-			if( unlock.getName().equals(productUnlocks.get(p).getName()) ) {
 				
-				// Verifier si quantite de produit dépasse seuil
-				if( productUnlocks.get(p).getSeuil() >= unlock.getSeuil() ) {
-					productUnlocks.get(p).setUnlocked(true);
-					// Appliquer le bonus
-					applyBonus(world, productUnlocks.get(p));
-					return true;
-				}
+			// Verifier si quantite de produit dépasse seuil
+			if(  !productUnlocks.get(p).isUnlocked() && productUnlocks.get(p).getSeuil() >= worldProduct.getQuantite() ) {
+				System.out.println("UNLOCK --- " + productUnlocks.get(p).getName());
+				productUnlocks.get(p).setUnlocked(true);
+				// Appliquer le bonus
+				applyBonus(world, productUnlocks.get(p));
+				saveWorldToXml(username, world);
+				return true;
 			}
+			
 		}
 		
 		saveWorldToXml(username, world);

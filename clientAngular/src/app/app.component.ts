@@ -262,6 +262,7 @@ export class AppComponent {
 
 
   applyUpgrade(pallier : Pallier) {
+    console.log("Apply upgrade " + pallier.name)
     if( pallier.typeratio == "anges") {
       this.world.angelbonus += pallier.ratio;
     } else {
