@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <world>
 	<name>Vatican Capitalist</name>
-	<logo>world-logo-armoirie-vatican.svg</logo>
+	<logo>logo.png</logo>
 	<money>0</money>
 	<score>0</score>
 	<totalangels>0</totalangels>
