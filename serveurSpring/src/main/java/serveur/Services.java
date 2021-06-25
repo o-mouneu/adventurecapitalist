@@ -307,7 +307,7 @@ public class Services {
 		
 		
 		for(int p=0; p<allUnlocks.size(); p++) {
-			if ( allUnlocks.get(p).isUnlocked() ) {
+			if ( !allUnlocks.get(p).isUnlocked() ) {
 				int idCible = allUnlocks.get(p).getIdcible();
 				if(idCible == 0) {
 					boolean isSeuilOk = true;
