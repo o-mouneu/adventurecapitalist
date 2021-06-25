@@ -116,4 +116,54 @@ aside{
     border: solid;
     top:10%; /* a 10% du haut */
     left:20%; /* a 20% de la gauche */
+
+    .layout{
+        display: inline-block;
+        width: 46%;
+        margin: 2%;
+
+        .logo,.name{
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .logo{
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background-color: red;
+
+            img{
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+
+        .name{
+            margin: 5px;
+        }
+
+    }
+
+}
+
+#investors div{
+    width: 75%;
+    margin: auto;
+    text-align: center;
+
+    img{
+        width: 100%;
+        margin: 20px;
+    }
+
+    button{
+        display: block;
+    }
+    button:first-of-type{
+        margin: auto;
+    }
+    button:last-of-type{
+        float: right;
+    }
 }

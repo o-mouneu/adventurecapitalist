@@ -20,6 +20,7 @@ export class AppComponent {
   _showUpgrades: boolean = false;
   _showAngelupgrades: boolean = false;
   _showManagers: boolean = false;
+  _showInvestors: boolean = false;
   badgeManagers: number = 0;
 
   _showUnlocks: boolean = false;
@@ -68,7 +69,6 @@ export class AppComponent {
     this._showUnlocks = value;
   }
 
-
   public get showUpgrades(){
     return this._showUpgrades;
   }
@@ -83,6 +83,14 @@ export class AppComponent {
 
   public set showAngelupgrades(value:boolean){
     this._showAngelupgrades = value;
+  }
+
+  public get showInvestors(){
+    return this._showInvestors;
+  }
+
+  public set showInvestors(value:boolean){
+    this._showInvestors = value;
   }
 
   badgeThis(liste: Pallier[]){
@@ -115,7 +123,8 @@ export class AppComponent {
       if( !unlock.unlocked && product.quantite >= unlock.seuil) {
         console.log("Unlock "+unlock.name+" for product "+product.name+" unlocked!");
         this.applyUpgrade(unlock);
-        unlock.unlocked = true;     
+        unlock.unlocked = true;
+        this.popMessage("Unlock "+unlock.name+" for product "+product.name+" unlocked!");     
       }
     }
 
@@ -133,6 +142,7 @@ export class AppComponent {
           console.log("AllUnlock "+allUnlock.name+" for all products unlocked!");
           this.applyUpgrade(allUnlock);
           allUnlock.unlocked = true;
+          this.popMessage("AllUnlock "+allUnlock.name+" for all products unlocked!");
         }
       }
     }
@@ -171,6 +181,7 @@ export class AppComponent {
     }
     this.applyUpgrade(upgrade);
     this.service.putUpgrade(upgrade);
+    this.popMessage(upgrade.name+" bought!");
   }
 
 
@@ -184,6 +195,7 @@ export class AppComponent {
     }
     this.applyUpgrade(upgrade);
     this.service.putAngelupgrade(upgrade);
+    this.popMessage(upgrade.name+" bought!");
   }
 
 

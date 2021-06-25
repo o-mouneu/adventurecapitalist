@@ -1,7 +1,7 @@
 <div class="col-md-6">
     <button (click)="startManualFabrication()" class="production" mat-raised-button color="primary">
         <figure>
-            <img [src]="product.logo"/>
+            <img [src]="server+product.logo"/>
         </figure>
         <mat-progress-spinner class="example-margin" mode="determinate" [value]="progressbarvalue * 1.4" color="accent"></mat-progress-spinner>
         <p>

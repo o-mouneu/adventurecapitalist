@@ -31,6 +31,8 @@ export class ProductComponent implements OnInit {
 
   _onProduction: boolean = false;
 
+  _server: string;
+
   constructor() {
   }
   
@@ -43,6 +45,15 @@ export class ProductComponent implements OnInit {
     setInterval(() => { this.calcScore(); }, 50);
     this.quantityForCostOfBuy();
     
+  }
+
+  get server(){
+    return this._server;
+  }
+
+  @Input()
+  set server(value: string){
+    this._server = value;
   }
 
   @Input()
